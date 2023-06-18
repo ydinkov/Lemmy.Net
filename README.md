@@ -1,7 +1,14 @@
 # A (WIP) DI http client for Lemmy in dotnet
 
 ## Usage
+
+Run 
+```ps1
+dotnet add package Lemmy.Net.Client
+```
+
 Add this to you Startup
+
 ```cs
 
 var services = new ServiceCollection();
