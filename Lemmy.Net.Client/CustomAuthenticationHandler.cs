@@ -10,13 +10,15 @@ using System.Threading.Tasks;
 namespace Lemmy.Net.Client { 
     public class CustomAuthenticationHandler : HttpClientHandler
     {
+        private readonly Uri _lemmyInstanceBaseUri;
         private readonly string _username;
         private readonly string _password;
         private readonly Func<string, Task<string>> _retrieveToken;
         private readonly Action<string, string> _saveToken;
 
-        public CustomAuthenticationHandler(string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null)
+        public CustomAuthenticationHandler(Uri lemmyInstanceBaseUri, string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null)
         {
+            _lemmyInstanceBaseUri = lemmyInstanceBaseUri;
             _username = username;
             _password = password;
             _retrieveToken = retrieveToken;
@@ -29,9 +31,13 @@ namespace Lemmy.Net.Client {
 
             if (string.IsNullOrWhiteSpace(jwtToken))
             {
-                var loginResponse = await base.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/api/v3/user/login")
+
+                var url = new UriBuilder(_lemmyInstanceBaseUri) { Path = "/api/v3/user/login" }.ToString();
+                var obj = JsonSerializer.Serialize(new { username_or_email = _username, password = _password });
+                var content = new StringContent(obj, Encoding.UTF8, "application/json");
+                var loginResponse = await base.SendAsync(new HttpRequestMessage(HttpMethod.Post, url)
                 {
-                    Content = new StringContent(JsonSerializer.Serialize(new { username = _username, password = _password }), Encoding.UTF8, "application/json")
+                    Content = content
                 }, cancellationToken);
 
                 if (!loginResponse.IsSuccessStatusCode)

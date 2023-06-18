@@ -24,7 +24,7 @@ namespace Lemmy.Net.Client.Models
             {
                 client.BaseAddress = lemmyInstanceBaseUri;
             })
-            .ConfigurePrimaryHttpMessageHandler(() => new CustomAuthenticationHandler(username, password, retrieveToken, saveToken));
+            .ConfigurePrimaryHttpMessageHandler(() => new CustomAuthenticationHandler(lemmyInstanceBaseUri,username, password, retrieveToken, saveToken));
         }
     }
 }

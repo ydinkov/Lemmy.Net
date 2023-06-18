@@ -17,7 +17,7 @@ namespace Lemmy.Net.Client.Models
         public bool Removed { get; set; }
         public bool Locked { get; set; }
         public DateTime Published { get; set; }
-        public DateTime Updated { get; set; }
+        public DateTime? Updated { get; set; }
         public bool Deleted { get; set; }
         public bool Nsfw { get; set; }
         public object EmbedTitle { get; set; }
@@ -71,7 +71,7 @@ namespace Lemmy.Net.Client.Models
         public bool FeaturedLocal { get; set; }
     }
 
-    public class PostEnvelope
+    public class PostRoot
     {
         public Post Post { get; set; }
         public Creator Creator { get; set; }
@@ -84,6 +84,12 @@ namespace Lemmy.Net.Client.Models
         public bool CreatorBlocked { get; set; }
         public object MyVote { get; set; }
         public int UnreadComments { get; set; }
+    }
+
+
+    public class PostEnvelope
+    {
+       public IList<PostRoot> Posts { get; set; }
     }
 
 }

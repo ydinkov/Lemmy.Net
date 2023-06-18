@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33513.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemmy.Net.Client", "Lemmy.Net.Client\Lemmy.Net.Client.csproj", "{37B9AAA1-2E48-48B0-9839-AC24A25C181C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemmy.Net.Tests", "Lemmy.Net.Tests\Lemmy.Net.Tests.csproj", "{A487B57F-105E-4DAA-B02B-DF94A7D8AEF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{37B9AAA1-2E48-48B0-9839-AC24A25C181C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B9AAA1-2E48-48B0-9839-AC24A25C181C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B9AAA1-2E48-48B0-9839-AC24A25C181C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A487B57F-105E-4DAA-B02B-DF94A7D8AEF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A487B57F-105E-4DAA-B02B-DF94A7D8AEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A487B57F-105E-4DAA-B02B-DF94A7D8AEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A487B57F-105E-4DAA-B02B-DF94A7D8AEF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

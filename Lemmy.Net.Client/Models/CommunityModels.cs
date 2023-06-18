@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lemmy.Net.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Lemmy.Net.Client.Models
         public string Description { get; set; }
         public bool Removed { get; set; }
         public DateTime Published { get; set; }
-        public DateTime Updated { get; set; }
+        public DateTime? Updated { get; set; }
         public bool Deleted { get; set; }
         public bool Nsfw { get; set; }
         public string ActorId { get; set; }
@@ -47,4 +48,17 @@ namespace Lemmy.Net.Client.Models
         public bool Blocked { get; set; }
         public Counts Counts { get; set; }
     }
+}
+
+public class CommunityRoot
+{
+    public Community Community { get; set; }
+    public string Subscribed { get; set; }
+    public bool Blocked { get; set; }
+    public Counts Counts { get; set; }
+}
+
+public class CommunityEnvelope
+{
+    public List<CommunityRoot> Communities { get; set; }
 }
