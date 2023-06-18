@@ -55,5 +55,5 @@ namespace YourNamespace.Controllers
 ```
 
 ## Supports
-- Posts
-- Comments
+- GET Posts for community
+- GET Communities
