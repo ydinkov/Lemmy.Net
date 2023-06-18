@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/heads
     branches:    
-      - master
+      - main
     paths:
       - 'Lemmy.Net.Client/**'
       - .github/workflows/nuget.yml
