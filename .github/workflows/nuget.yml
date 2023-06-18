@@ -24,6 +24,14 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release
+
+      - name: Create config.json
+        run: |
+          echo '{
+            "username": "${{ secrets.TEST_USER }}",
+            "password": "${{ secrets.TEST_PASSWORD }}",
+            "instanceUrl": "${{ secrets.TEST_INSTANCE }}"
+          }' > Lemmy.Net.Tests/config.json
         
       #- name: Test
       #  run: dotnet test        
