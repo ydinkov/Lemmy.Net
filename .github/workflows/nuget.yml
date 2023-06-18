@@ -8,6 +8,7 @@ on:
     paths:
       - 'Lemmy.Net.Client/**'
       - .github/workflows/nuget.yml
+  workflow_dispatch:
 
 jobs:
   build:
