@@ -16,7 +16,7 @@ namespace Nibblebit.Lemmy.Tests
 
         public UnitTest1()
         {
-            _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText("local.config.json"));
+            _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText("config.json"));
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace Nibblebit.Lemmy.Tests
             var services = new ServiceCollection();
 
             services.AddLemmyClient(
-                new Uri("https://programming.dev/"),
+                new Uri(_testConfig["instanceUrl"]),
                 _testConfig["username"],
                 _testConfig["password"],
                 async username => File.Exists($"{username}.txt") ? File.ReadAllText($"{username}.txt") : "",
