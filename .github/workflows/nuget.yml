@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - master
+    paths:
+      - 'Lemmy.Net.Client/**'
+      - .github/workflows/nuget.yml
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet: '6.0'
+
+      - name: Build
+        run: dotnet build --configuration Release
+      #- name: Test
+      #  run: dotnet test        
+      - name: Pack
+        run: dotnet pack Lemmy.Net.Client --configuration Release        
+        
+      - name: Push
+        run: dotnet nuget push Lemmy.Net.Client\bin\Release\Lemmy.Net.Client.*.nupkg  -s https://www.nuget.org/ -k ${{ secrets.NUGET_KEY }}
