@@ -1,4 +1,5 @@
-﻿using Lemmy.Net.Client.Models;
+﻿using System.Reflection;
+using Lemmy.Net.Client.Models;
 using System.Text;
 using System.Text.Json;
 
@@ -49,16 +50,29 @@ namespace Lemmy.Net.Client.Models
             return await JsonSerializer.DeserializeAsync<TResponse>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        public async Task<PostEnvelope> GetPostsAsync(string comunityId) =>
-            await GetAsync<PostEnvelope>($"/post/list?community={comunityId}");
+        public async Task<PostEnvelope> DeletePostsAsync(int postId) => 
+            await PostAsync<DeletePost,PostEnvelope>($"/post/delete",new (){PostId = postId});
 
-        public async Task<CommunityEnvelope> GetComunitiesAsync() =>
+        public async Task<PostEnvelope> CreatePostsAsync(CreatePost post) => 
+            await PostAsync<CreatePost,PostEnvelope>($"/post",post);
+
+        public Task<PostEnvelope> GetPostAsync(string postId) => 
+            GetAsync<PostEnvelope>($"/post?id={postId}");
+
+        public async Task<PostsEnvelope> GetPostsAsync(string comunityId) =>
+            await GetAsync<PostsEnvelope>($"/post/list?community={comunityId}");
+
+        public async Task<CommunityEnvelope> GetCommunitiesAsync() =>
             await GetAsync<CommunityEnvelope>($"/community/list");
     }
 
     public interface ILemmyService
     {
-        Task<PostEnvelope> GetPostsAsync(string comunityId);
-        Task<CommunityEnvelope> GetComunitiesAsync();
+        Task<PostEnvelope> DeletePostsAsync(int postId);
+        Task<PostEnvelope> CreatePostsAsync(CreatePost post);
+        
+        Task<PostEnvelope> GetPostAsync(string postId);
+        Task<PostsEnvelope> GetPostsAsync(string comunityId);
+        Task<CommunityEnvelope> GetCommunitiesAsync();
     }
 }

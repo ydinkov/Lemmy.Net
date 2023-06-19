@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Lemmy.Net.Client.Models;
 
 namespace Lemmy.Net.Client { 
     public class CustomAuthenticationHandler : HttpClientHandler
@@ -56,6 +58,20 @@ namespace Lemmy.Net.Client {
             }
 
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
+
+            //I really don't understand why the api want's the following, but okay.
+            if (request.Method == HttpMethod.Post)
+            {
+                //interscept the request object
+                var str = await request.Content.ReadAsStringAsync(cancellationToken);
+                var proxy = JsonSerializer.Deserialize<Dictionary<string,object>>(str);
+                //Add the token to an auth property
+                proxy["auth"] = jwtToken;
+                //inject the new auth object back into the request
+                var raw = JsonSerializer.Serialize(proxy);
+                request.Content = new StringContent(raw,Encoding.UTF8,"application/json");
+            }
+
             return await base.SendAsync(request, cancellationToken);
         }
     }
