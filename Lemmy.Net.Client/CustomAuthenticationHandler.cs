@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,27 +18,42 @@ namespace Lemmy.Net.Client {
         private readonly string _password;
         private readonly Func<string, Task<string>> _retrieveToken;
         private readonly Action<string, string> _saveToken;
+        private readonly string _defaultVersion;
 
-        public CustomAuthenticationHandler(Uri lemmyInstanceBaseUri, string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null)
+        public CustomAuthenticationHandler(Uri lemmyInstanceBaseUri, string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null,string defaultVersion="v3")
         {
             _lemmyInstanceBaseUri = lemmyInstanceBaseUri;
             _username = username;
             _password = password;
             _retrieveToken = retrieveToken;
             _saveToken = saveToken;
+            _defaultVersion = defaultVersion;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var jwtToken = await _retrieveToken(_username);
+            var defaultPath = $"/api/{_defaultVersion}";
+            
+            var builder = new UriBuilder(request.RequestUri)
+            {
+                Path =  $"{defaultPath}{request.RequestUri.AbsolutePath}"
+            };
+
+            request.RequestUri = builder.Uri;
+
+            //return await base.SendAsync(request, cancellationToken);
 
             if (string.IsNullOrWhiteSpace(jwtToken))
             {
 
-                var url = new UriBuilder(_lemmyInstanceBaseUri) { Path = "/api/v3/user/login" }.ToString();
+                var urib = new UriBuilder(_lemmyInstanceBaseUri);
+                urib.Path += $"{defaultPath}user/login";
+                var uri = urib.ToString();
+                
                 var obj = JsonSerializer.Serialize(new { username_or_email = _username, password = _password });
                 var content = new StringContent(obj, Encoding.UTF8, "application/json");
-                var loginResponse = await base.SendAsync(new HttpRequestMessage(HttpMethod.Post, url)
+                var loginResponse = await base.SendAsync(new HttpRequestMessage(HttpMethod.Post, uri)
                 {
                     Content = content
                 }, cancellationToken);
@@ -67,9 +83,7 @@ namespace Lemmy.Net.Client {
                 var proxy = JsonSerializer.Deserialize<Dictionary<string,object>>(str);
                 //Add the token to an auth property
                 proxy["auth"] = jwtToken;
-                //inject the new auth object back into the request
-                var raw = JsonSerializer.Serialize(proxy);
-                request.Content = new StringContent(raw,Encoding.UTF8,"application/json");
+                request.Content = JsonContent.Create(proxy);
             }
 
             return await base.SendAsync(request, cancellationToken);

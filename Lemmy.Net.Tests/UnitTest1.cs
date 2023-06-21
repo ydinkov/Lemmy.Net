@@ -30,7 +30,7 @@ namespace Nibblebit.Lemmy.Tests
             _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(configStr);
             var services = new ServiceCollection();
             services.AddLemmyClient(
-                new Uri(_testConfig["instanceUrl"]),
+                _testConfig["instanceUrl"],
                 _testConfig["username"],
                 _testConfig["password"],
                 async username => File.Exists($"{username}.txt") ? File.ReadAllText($"{username}.txt") : "",
@@ -50,15 +50,26 @@ namespace Nibblebit.Lemmy.Tests
         [Fact]
         public async Task GetPostsTestAsync()
         {
-            var posts = await _lemmy.GetPostsAsync("15");
+            //test community '15'
+            var posts = await _lemmy.GetPostsAsync();
             posts.Posts.Should().HaveCountGreaterThan(0);
         }
         
         [Fact]
         public async Task GetPostTestAsync()
         {
-            var posts = await _lemmy.GetPostAsync("2");
+            //test post '2'
+            var posts = await _lemmy.GetPostAsync(2);
             posts.Post.Should().NotBeNull();
+        }
+        
+        [Fact]
+        public async Task GetCommentsTestAsync()
+        {
+            //test post '2'
+            
+            var comments = await _lemmy.Comment.List("community=2");
+            comments.Comments.Should().NotBeNull();
         }
         
         [Fact]

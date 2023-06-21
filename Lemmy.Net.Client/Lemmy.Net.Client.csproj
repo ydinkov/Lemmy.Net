@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <VersionPrefix>0.0.5</VersionPrefix>
+    <VersionPrefix>0.1.0</VersionPrefix>
     <Nullable>enable</Nullable>
 
     <PackageId>Lemmy.Net.Client</PackageId>
@@ -26,7 +26,7 @@
   <ItemGroup>
     <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"></None>
     <None Include="..\logo.png" Pack="true" PackagePath="$(PackageIcon)"></None>
-    <None Include="..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)"/>
+    <None Include="..\README.md" Pack="true" PackagePath="$(PackageReadmeFile)" />
   </ItemGroup>
 
 </Project>

@@ -28,3 +28,25 @@ public class ModeratorRoot
     public User Moderator { get; set; }
     public Community Community { get; set; }
 }
+
+public class DeleteAccount
+{
+    public string Password { get; set; } = string.Empty;
+}
+
+public class FollowCommunity
+{
+    public int CommunityId { get; set; }
+    public bool Follow { get; set; }
+}
+
+
+public class Login
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
+public class LoginResponse
+{
+    public string Jwt { get; set; }
+}

@@ -1,9 +1,4 @@
 ﻿using Lemmy.Net.Client.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lemmy.Net.Client.Models
 {
@@ -61,4 +56,31 @@ public class CommunityRoot
 public class CommunityEnvelope
 {
     public List<CommunityRoot> Communities { get; set; }
+}
+
+
+public class CreateCommunity
+{
+    public string? Banner { get; set; }
+    public string? Description { get; set; }
+    public int[]? DiscussionLanguages { get; set; }
+    public string? Icon { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public bool? Nsfw { get; set; }
+    public bool? PostingRestrictedToMods { get; set; }
+    public string Title { get; set; } = string.Empty;
+}
+
+
+
+public class EditCommunity
+{
+    public string? Banner { get; set; }
+    public int CommunityId { get; set; }
+    public string? Description { get; set; }
+    public int[]? DiscussionLanguages { get; set; }
+    public string? Icon { get; set; }
+    public bool? Nsfw { get; set; }
+    public bool? PostingRestrictedToMods { get; set; }
+    public string? Title { get; set; }
 }

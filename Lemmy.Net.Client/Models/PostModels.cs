@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Lemmy.Net.Client.Models
 {
@@ -54,23 +49,8 @@ namespace Lemmy.Net.Client.Models
         public object BanExpires { get; set; }
         public int InstanceId { get; set; }
     }
-
-    public class DeletePost
-    {
-        [JsonPropertyName("post_id")]public int PostId { get; set; }
-        [JsonPropertyName("deleted")] public bool Deleted => true;
-    }
-   
-    public class CreatePost
-    {
-        [JsonPropertyName("name")]public string Name { get; set; }
-        [JsonPropertyName("community_id")]public int CommunityId { get; set; }
-        [JsonPropertyName("url")]public string? Url { get; set; }
-        [JsonPropertyName("body")]public string? Body { get; set; }
-        [JsonPropertyName("honeypot")]public string? Honeypot { get; set; }
-        [JsonPropertyName("nsfw")]public bool Nsfw { get; set; }
-        [JsonPropertyName("language_id")]public int? LanguageId { get; set; }
-    }
+ 
+    
 
     public class PostCounts
     {
@@ -115,5 +95,31 @@ namespace Lemmy.Net.Client.Models
     {
        public IList<PostRoot> Posts { get; set; }
     }
+    
+    public class CreatePost
+    {
+        [JsonPropertyName("name")]public string Name { get; set; }
+        [JsonPropertyName("community_id")]public int CommunityId { get; set; }
+        [JsonPropertyName("url")]public string? Url { get; set; }
+        [JsonPropertyName("body")]public string? Body { get; set; }
+        [JsonPropertyName("honeypot")]public string? Honeypot { get; set; }
+        [JsonPropertyName("nsfw")]public bool Nsfw { get; set; }
+        [JsonPropertyName("language_id")]public int? LanguageId { get; set; }
+    }
+   
+    public class EditPost
+    {
+        public string? Body { get; set; }
+        public int? LanguageId { get; set; }
+        public string? Name { get; set; }
+        public bool? Nsfw { get; set; }
+        public int PostId { get; set; }
+        public string? Url { get; set; }
+    }
+    
+    
+   
+   
+    
 
 }

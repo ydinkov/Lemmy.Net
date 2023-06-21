@@ -18,13 +18,21 @@ namespace Lemmy.Net.Client.Models
         /// This parameter is optional and can be null.</param>
         /// <param name="saveToken">An action to save the JWT token for a username after it's retrieved from a login request.
         /// This parameter is optional and can be null.</param>
-        public static void AddLemmyClient(this IServiceCollection services, Uri lemmyInstanceBaseUri, string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null)
+        public static void AddLemmyClient(this IServiceCollection services, string lemmyInstance,  string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null,string apiVersion="v3")
         {
+
+            lemmyInstance = lemmyInstance.Replace("https://", "");
+            lemmyInstance = lemmyInstance.Split("/").First();
+            var uri = new Uri($"https://{lemmyInstance}/api/{apiVersion}/");
+            
             services.AddHttpClient<ILemmyService, LemmyService>(client =>
             {
-                client.BaseAddress = lemmyInstanceBaseUri;
+                client.BaseAddress = uri;
             })
-            .ConfigurePrimaryHttpMessageHandler(() => new CustomAuthenticationHandler(lemmyInstanceBaseUri,username, password, retrieveToken, saveToken));
+            .ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken);
+            });
         }
     }
 }

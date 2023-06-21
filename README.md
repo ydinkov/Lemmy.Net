@@ -52,16 +52,28 @@ namespace YourNamespace.Controllers
         }
 
         // Your action methods go here
+        public void DoAThing(){
+            //Prints the names of all the communities on the instance
+            foreach(var c in _lemmyService.Community.List().Community)
+            {
+                Console.WriteLine(c.Community.Name);
+            }
+        }
+        
     }
 }
 ```
 
 ## Supports
-- GET Posts for community
-- GET Post
-- GET Communities
-- Create Post
-- Delete Post
+- CRUD for Communities
+- CRUD for Posts (and voting)
+- CRUD for Comments (and voting)
 
 ## TODO
-- Create Comments
+- Better querying
+- Support for Site actions
+- Reports
+- Private messages
+- RSS links
+- Mod and Admin Actions
+- Test Coverage
