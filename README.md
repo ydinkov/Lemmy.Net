@@ -54,7 +54,7 @@ namespace YourNamespace.Controllers
         // Your action methods go here
         public void DoAThing(){
             //Prints the names of all the communities on the instance
-            foreach(var c in _lemmyService.Community.List().Community)
+            foreach(var c in _lemmyService.Community.List().Communities)
             {
                 Console.WriteLine(c.Community.Name);
             }
