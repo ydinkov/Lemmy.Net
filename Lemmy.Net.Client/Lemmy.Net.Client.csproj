@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <VersionPrefix>0.0.4</VersionPrefix>
+    <VersionPrefix>0.0.5</VersionPrefix>
     <Nullable>enable</Nullable>
 
     <PackageId>Lemmy.Net.Client</PackageId>
-    <PackageIcon>icon.png</PackageIcon>
+    <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/ydinkov/Lemmy.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ydinkov/Lemmy.Net</RepositoryUrl>
@@ -25,6 +25,9 @@
   <ItemGroup>
     <Content Include="..\LICENSE">
       <Link>LICENSE</Link>
+    </Content>
+    <Content Include="..\logo.png">
+      <Link>logo.png</Link>
     </Content>
   </ItemGroup>
 

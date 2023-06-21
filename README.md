@@ -1,3 +1,5 @@
+<img src="logo.png" width="200"/>
+
 # A (WIP) DI http client for Lemmy in dotnet
 
 ## Usage
