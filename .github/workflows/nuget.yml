@@ -1,4 +1,4 @@
-name: Build
+name: "Build, Test and Publish"
 
 on:
   push:
@@ -22,16 +22,16 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Create config.json
+      - name: Build
+        run: dotnet build --configuration Release
+        
+      - name: Overwrite config.json
         run: |
           echo '{
             "username": "${{ secrets.TEST_USER }}",
             "password": "${{ secrets.TEST_PASSWORD }}",
             "instanceUrl": "${{ secrets.TEST_INSTANCE }}"
-          }' > Lemmy.Net.Tests/config.json
-        
-      - name: Build
-        run: dotnet build --configuration Release
+          }' > Lemmy.Net.Tests/bin/net6.0/config.json
         
       - name: Test
         run: dotnet test        
