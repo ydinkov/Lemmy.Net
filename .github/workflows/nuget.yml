@@ -34,8 +34,8 @@ jobs:
           }' > Lemmy.Net.Tests/bin/Release/net6.0/config.json
         
       - name: Test
-        run: dotnet test        
-        
+        run: dotnet test --configuration Release
+      
       - name: Pack
         run: dotnet pack Lemmy.Net.Client --configuration Release        
         
