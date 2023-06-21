@@ -15,7 +15,12 @@ namespace Nibblebit.Lemmy.Tests
         private ILemmyService _lemmy;
         public UnitTest1()
         {
-            _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText("local.config.json"));
+            string configStr;
+            try{configStr = File.ReadAllText("config.json");}
+            catch{configStr = File.ReadAllText("local.config.json");}
+
+
+            _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(configStr);
             var services = new ServiceCollection();
             services.AddLemmyClient(
                 new Uri(_testConfig["instanceUrl"]),
