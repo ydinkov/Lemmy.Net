@@ -16,8 +16,15 @@ namespace Nibblebit.Lemmy.Tests
         public UnitTest1()
         {
             string configStr;
-            try{configStr = File.ReadAllText("config.json");}
-            catch{configStr = File.ReadAllText("local.config.json");}
+            try
+            {
+                configStr = File.ReadAllText("config.json");
+            }
+            catch
+            {
+                Console.WriteLine("Couldn't find config.json, loading local.");
+                configStr = File.ReadAllText("local.config.json");
+            }
 
 
             _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(configStr);
