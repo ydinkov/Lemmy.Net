@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - 'Lemmy.Net.Client/**'
-      - .github/workflows/nuget.yml
+      - '.github/workflows/**'
   workflow_dispatch:
 
 jobs:
@@ -32,6 +32,7 @@ jobs:
         
       - name: Build
         run: dotnet build --configuration Release
+        
       - name: Test
         run: dotnet test        
         

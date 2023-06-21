@@ -5,6 +5,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <VersionPrefix>0.0.3</VersionPrefix>
     <Nullable>enable</Nullable>
+
+    <PackageId>Lemmy.Net.Client</PackageId>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/ydinkov/Lemmy.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ydinkov/Lemmy.Net</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+    <Authors>Yasen Dinkov</Authors>
+    
   </PropertyGroup>
 
   <ItemGroup>
