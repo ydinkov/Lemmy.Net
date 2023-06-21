@@ -17,7 +17,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v1
-      - name: Set up .NET 7
+      - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x

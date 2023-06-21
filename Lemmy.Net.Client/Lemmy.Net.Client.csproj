@@ -8,7 +8,7 @@
 
     <PackageId>Lemmy.Net.Client</PackageId>
     <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/ydinkov/Lemmy.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ydinkov/Lemmy.Net</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)"></None>
+    <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"></None>
     <None Include="..\logo.png" Pack="true" PackagePath="$(PackageIcon)"></None>
   </ItemGroup>
 
