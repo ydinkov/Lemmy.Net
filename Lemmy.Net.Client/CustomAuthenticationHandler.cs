@@ -44,11 +44,11 @@ namespace Lemmy.Net.Client {
 
             //return await base.SendAsync(request, cancellationToken);
 
-            if (string.IsNullOrWhiteSpace(jwtToken))
+            if (string.IsNullOrWhiteSpace(jwtToken) || true)
             {
 
                 var urib = new UriBuilder(_lemmyInstanceBaseUri);
-                urib.Path += $"{defaultPath}user/login";
+                urib.Path += "user/login";
                 var uri = urib.ToString();
                 
                 var obj = JsonSerializer.Serialize(new { username_or_email = _username, password = _password });
