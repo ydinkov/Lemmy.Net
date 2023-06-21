@@ -8,7 +8,7 @@
 
     <PackageId>Lemmy.Net.Client</PackageId>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageLicenseFile>../LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/ydinkov/Lemmy.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ydinkov/Lemmy.Net</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -20,6 +20,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\LICENSE">
+      <Link>LICENSE</Link>
+    </Content>
   </ItemGroup>
 
 </Project>
