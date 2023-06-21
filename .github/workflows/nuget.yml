@@ -22,9 +22,6 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Build
-        run: dotnet build --configuration Release
-
       - name: Create config.json
         run: |
           echo '{
@@ -33,6 +30,8 @@ jobs:
             "instanceUrl": "${{ secrets.TEST_INSTANCE }}"
           }' > Lemmy.Net.Tests/config.json
         
+      - name: Build
+        run: dotnet build --configuration Release
       - name: Test
         run: dotnet test        
         
