@@ -7,8 +7,8 @@
     <Nullable>enable</Nullable>
 
     <PackageId>Lemmy.Net.Client</PackageId>
-    <PackageIcon>../logo.png</PackageIcon>
-    <PackageLicenseFile>../LICENSE</PackageLicenseFile>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/ydinkov/Lemmy.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ydinkov/Lemmy.Net</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -23,12 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\LICENSE">
-      <Link>LICENSE</Link>
-    </Content>
-    <Content Include="..\logo.png">
-      <Link>logo.png</Link>
-    </Content>
+    <None Include="..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)"></None>
+    <None Include="..\logo.png" Pack="true" PackagePath="$(PackageIcon)"></None>
   </ItemGroup>
 
 </Project>
