@@ -56,4 +56,10 @@ namespace YourNamespace.Controllers
 
 ## Supports
 - GET Posts for community
+- GET Post
 - GET Communities
+- Create Post
+- Delete Post
+
+## TODO
+- Create Comments

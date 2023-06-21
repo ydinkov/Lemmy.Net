@@ -1,5 +1,5 @@
 ﻿{
   "username": "<TEST USERNAME>",
   "password": "<TEST PASSWORD>",
-  "instanceUrl": "<INSTANCE URL>"
+  "instanceUrl": "https://enterprise.lemmy.ml"
 }
