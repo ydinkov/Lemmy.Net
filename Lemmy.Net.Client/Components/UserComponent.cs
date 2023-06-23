@@ -24,7 +24,13 @@ public class UserComponent
         var res = await _http.PostAsJsonAsync("/user/change_password", newPassword);
         return await res.Content.ReadFromJsonAsync<LoginResponse>();
     }
-    
+
+    public async Task<LoginResponse> ChangePassword(string password)
+    {
+        var res = await _http.PostAsJsonAsync("/user/delete", new {password = password});
+        return await res.Content.ReadFromJsonAsync<LoginResponse>();
+    }
+
     public async Task<PersonRoot> Ban(int userId, bool deleteData = true)
     {
         var res = await _http.PostAsJsonAsync("/user/ban", new{ban =true,user_id = userId,remove_data=deleteData});
@@ -42,4 +48,11 @@ public class UserComponent
         var res = await _http.PostAsJsonAsync("/community/block", new{block=false, person_id = userId});
         return await res.Content.ReadFromJsonAsync<BlockUser>();
     }
+
+    public async Task<DeleteAccountResponse> Delete(string password)
+    {
+        var res = await _http.PostAsJsonAsync("/user/delete_account", new { password = password});
+        return await res.Content.ReadFromJsonAsync<DeleteAccountResponse>();
+    }
+
 }

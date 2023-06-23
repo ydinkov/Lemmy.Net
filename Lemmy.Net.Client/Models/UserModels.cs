@@ -25,6 +25,17 @@ public class User
         public int InstanceId { get; set; }
 }
 
+public class UserEnvelope
+{
+    public PersonRoot Person { get; set; }
+}
+
+public class DeleteAccountResponse
+{
+    public IList<PersonRoot> Banned { get; set; }
+}
+
+
 public class UserRoot
 {
     public User Moderator { get; set; }
@@ -37,10 +48,6 @@ public class PersonRoot
     public Counts Counts { get; set; }
 }
 
-public class DeleteAccount
-{
-    public string Password { get; set; } = string.Empty;
-}
 
 public class FollowCommunity
 {
