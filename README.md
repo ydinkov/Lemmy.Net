@@ -68,12 +68,23 @@ namespace YourNamespace.Controllers
 - CRUD for Communities
 - CRUD for Posts (and voting)
 - CRUD for Comments (and voting)
+- CRUD for Private messages (and reporting)
 
 ## TODO
 - Better querying
 - Support for Site actions
+    - CRUD
+    - Metadata
+    - Registrations
+- Mentions
+- User Management
+    - Password Resets
+    - Captchas
+    - Personal Details
 - Reports
-- Private messages
+    - Comments
+    - Post
+- Responses
 - RSS links
 - Mod and Admin Actions
 - Test Coverage
