@@ -1,4 +1,5 @@
-﻿using Lemmy.Net.Client.Models;
+﻿using System.Text.Json.Serialization;
+using Lemmy.Net.Client.Models;
 
 namespace Lemmy.Net.Client.Models
 {
@@ -83,4 +84,27 @@ public class EditCommunity
     public bool? Nsfw { get; set; }
     public bool? PostingRestrictedToMods { get; set; }
     public string? Title { get; set; }
+}
+
+public class BanUser
+{
+    public bool Ban { get; set; }
+    public int CommunityId { get; set; }
+    public int? Expires { get; set; }
+    public int PersonId { get; set; }
+    public string? Reason { get; set; }
+    public bool? RemoveData { get; set; }
+}
+
+public class BanResponse
+{
+    public bool Banned { get; set; }
+    [JsonPropertyName("person_view")] public UserRoot PersonView { get; set; }
+}
+
+
+public class CommunityBlock
+{
+    public bool Blocked { get; set; }
+    [JsonPropertyName("community_view")] public UserRoot CommunityView { get; set; }
 }

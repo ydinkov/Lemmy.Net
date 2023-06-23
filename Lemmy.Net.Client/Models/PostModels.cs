@@ -86,7 +86,7 @@ namespace Lemmy.Net.Client.Models
     {
         [JsonPropertyName("community_view")]public CommunityRoot? Community { get; set; }
         [JsonPropertyName("post_view")]public PostRoot Post { get; set; }
-        [JsonPropertyName("moderators")]public IList<ModeratorRoot>? Moderators { get; set; }
+        [JsonPropertyName("moderators")]public IList<UserRoot>? Moderators { get; set; }
         [JsonPropertyName("online")]public int? Online { get; set; }
     }
 

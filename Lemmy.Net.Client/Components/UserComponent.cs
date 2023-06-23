@@ -16,10 +16,30 @@ public class UserComponent
     public async Task<LoginResponse> Login(Login login)
     {
         var res = await _http.PostAsync("/api/v3/user/login", JsonContent.Create(login));
-        if (!res.IsSuccessStatusCode)
-        {
-            throw new ApplicationException($"Failed to log in: {res.StatusCode}");
-        }
-        return JsonSerializer.Deserialize<LoginResponse>(await res.Content.ReadAsStringAsync());
+        return await res.Content.ReadFromJsonAsync<LoginResponse>();
+    }
+    
+    public async Task<LoginResponse> ChangePassword(ChangePassword newPassword)
+    {
+        var res = await _http.PostAsJsonAsync("/user/change_password", newPassword);
+        return await res.Content.ReadFromJsonAsync<LoginResponse>();
+    }
+    
+    public async Task<PersonRoot> Ban(int userId, bool deleteData = true)
+    {
+        var res = await _http.PostAsJsonAsync("/user/ban", new{ban =true,user_id = userId,remove_data=deleteData});
+        return await res.Content.ReadFromJsonAsync<PersonRoot>();
+    }
+    
+    public async Task<BlockUser> Block(int userId)
+    {
+        var res = await _http.PostAsJsonAsync("/community/block", new{block=true, person_id = userId});
+        return await res.Content.ReadFromJsonAsync<BlockUser>();
+    }
+    
+    public async Task<BlockUser> UnBlock(int userId)
+    {
+        var res = await _http.PostAsJsonAsync("/community/block", new{block=false, person_id = userId});
+        return await res.Content.ReadFromJsonAsync<BlockUser>();
     }
 }
