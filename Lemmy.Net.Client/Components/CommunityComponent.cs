@@ -21,10 +21,10 @@ public class CommunityComponent
     }
 
     
-    public async Task<bool> Create(CreateCommunity create)
+    public async Task<CommunityEnvelope> Create(CreateCommunity create)
     {
         var res = await _http.PostAsJsonAsync("/community", create);
-        return res.IsSuccessStatusCode;
+        return await res.Content.ReadFromJsonAsync<CommunityEnvelope>();
     }
     
     public async Task<bool> Delete(int communityId)
@@ -32,11 +32,11 @@ public class CommunityComponent
         var res = await _http.PostAsJsonAsync("/comment", new{community_id = communityId,delete= true});
         return res.IsSuccessStatusCode;
     }
-    public async Task<CommunityEnvelope> List(string? query = null)
+    public async Task<CommunitiesEnvelope> List(string? query = null)
     {
         var q = string.IsNullOrWhiteSpace(query) ? string.Empty : $"?{query}";
         var res = await _http.GetAsync($"/community/list{q}");
-        return await res.Content.ReadFromJsonAsync<CommunityEnvelope>();
+        return await res.Content.ReadFromJsonAsync<CommunitiesEnvelope>();
     }
     
     public async Task<CommunityModEnvelope> CreateMod(AddModToCommunity addMod)

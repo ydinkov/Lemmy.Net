@@ -44,7 +44,7 @@ namespace Lemmy.Net.Client {
 
             //return await base.SendAsync(request, cancellationToken);
 
-            if (string.IsNullOrWhiteSpace(jwtToken) || true)
+            if (string.IsNullOrWhiteSpace(jwtToken))
             {
 
                 var urib = new UriBuilder(_lemmyInstanceBaseUri);
@@ -85,10 +85,19 @@ namespace Lemmy.Net.Client {
                 proxy["auth"] = jwtToken;
                 request.Content = JsonContent.Create(proxy);
             }
+            
+            var res = await base.SendAsync(request, cancellationToken);
 
-            return await base.SendAsync(request, cancellationToken);
+            return res.IsSuccessStatusCode
+                ? res
+                : throw new HttpRequestException((await res.Content.ReadAsStringAsync(cancellationToken)), null,
+                    res.StatusCode);
+ 
+            
+    
         }
     }
 
-
+    
+    
 }

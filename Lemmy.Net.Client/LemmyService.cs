@@ -32,7 +32,7 @@ namespace Lemmy.Net.Client.Models
         public async Task<PostsEnvelope> GetPostsAsync() =>
             await Post.List();
 
-        public async Task<CommunityEnvelope> GetCommunitiesAsync() =>
+        public async Task<CommunitiesEnvelope> GetCommunitiesAsync() =>
             await Community.List(string.Empty);
     }
 
@@ -49,6 +49,6 @@ namespace Lemmy.Net.Client.Models
         Task<PostEnvelope> CreatePostsAsync(CreatePost post);
         Task<PostEnvelope> GetPostAsync(int postId);
         Task<PostsEnvelope> GetPostsAsync();
-        Task<CommunityEnvelope> GetCommunitiesAsync();
+        Task<CommunitiesEnvelope> GetCommunitiesAsync();
     }
 }

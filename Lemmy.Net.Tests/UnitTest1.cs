@@ -46,6 +46,21 @@ namespace Nibblebit.Lemmy.Tests
             var communities = await _lemmy.GetCommunitiesAsync();
             communities.Communities.Should().HaveCountGreaterThan(0);
         }
+        
+        [Fact]
+        public async Task CreateCommunityAsync()
+        {
+            //41394
+            var c = new CreateCommunity
+            {
+                Name = "TestPleaseIgnore5", Title = "Bla2"
+            };
+            var communities = await _lemmy.Community.Create(c);
+            communities.CommunityView.Community.Id.Should().NotBe(null);
+            var r = await _lemmy.Community.Delete(communities.CommunityView.Community.Id);
+            r.Should().BeTrue();
+        }
+
 
         [Fact]
         public async Task GetPostsTestAsync()
