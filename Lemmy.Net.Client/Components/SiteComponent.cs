@@ -30,5 +30,9 @@ namespace Lemmy.Net.Client.Components
             var res = await _http.PutAsJsonAsync("/site", site);
             return await res.Content.ReadFromJsonAsync<SiteEnvelope>();
         }
+        
+        public async Task<SiteMetadataEnvelope> GetMetadata() =>
+            await _http.GetFromJsonAsync<SiteMetadataEnvelope>($"/site/metadata");
+
     }
 }

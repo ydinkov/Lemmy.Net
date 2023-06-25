@@ -119,6 +119,18 @@ namespace Lemmy.Net.Client.Models
     
     
    
+    public class SiteMetadata
+    {
+        public string? Description { get; set; }
+        public string? Html { get; set; }
+        public string? Image { get; set; }
+        public string? Title { get; set; }
+    }
+
+    public class SiteMetadataEnvelope
+    {
+        public SiteMetadata Metadata { get; set; }
+    }
    
     
 

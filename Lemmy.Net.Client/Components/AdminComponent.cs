@@ -26,14 +26,11 @@ public class AdminComponent
     }
 
     
+   
+    public async Task<UnreadRegistrationApplicationCount> GetUnreadRegistration() =>
+        await _http.GetFromJsonAsync<UnreadRegistrationApplicationCount>("/admin/registration_application/count");
+
+
+  
     
-    public class RegistrationApplication
-    {
-        [JsonPropertyName("admin_id")] public int AdminId { get; private set; }
-        public string Answer { get; private set; } = string.Empty;
-        [JsonPropertyName("deny_reason")] public string? DenyReason { get; private set; }
-        public int Id { get; private set; }
-        [JsonPropertyName("local_user_id")] public int LocalUserId { get; private set; }
-        public string Published { get; private set; } = string.Empty;
-    }
 }

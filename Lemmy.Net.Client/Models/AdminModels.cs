@@ -35,5 +35,22 @@ public class RegistrationApplicationRoot
     [JsonPropertyName("creator_local_user")] 
     public UserSettings CreatorLocalUser { get; set; }
     [JsonPropertyName("registration_application")] 
-    public AdminComponent.RegistrationApplication RegistrationApplication { get; private set; } = null!;
+    public RegistrationApplication RegistrationApplication { get; private set; } = null!;
+}
+
+
+public class RegistrationApplication
+{
+    [JsonPropertyName("admin_id")] public int AdminId { get; private set; }
+    public string Answer { get; private set; } = string.Empty;
+    [JsonPropertyName("deny_reason")] public string? DenyReason { get; private set; }
+    public int Id { get; private set; }
+    [JsonPropertyName("local_user_id")] public int LocalUserId { get; private set; }
+    public string Published { get; private set; } = string.Empty;
+}
+    
+public class UnreadRegistrationApplicationCount
+{
+    [JsonPropertyName("registration_applications")] 
+    public int RegistrationApplications { get; set; }
 }

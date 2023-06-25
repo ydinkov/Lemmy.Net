@@ -188,3 +188,26 @@ public class UserMention
     public bool Read { get; set; }
     [JsonPropertyName("recipient_id")] public int RecipientId { get; set; }
 }
+
+public class GetReplies
+{
+    public int? Limit { get; set; }
+    public int? Page { get; set; }
+    public string? Sort { get; set; }
+    public bool? UnreadOnly { get; set; }
+
+}
+
+public class ReportCount
+{
+    public int CommentReports { get; private set; }
+    public int? CommunityId { get; private set; }
+    public int PostReports { get; private set; }
+    public int? PrivateMessageReports { get; private set; }
+}
+public class UnreadCount
+{
+    public int Mentions { get; set; }
+    public int PrivateMessages { get; set; }
+    public int Replies { get; set; }
+}

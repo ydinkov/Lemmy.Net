@@ -69,7 +69,25 @@ public class UserComponent
 
 
     public async Task<UserMentionsEnvelope> GetMentions(GetUserMentions mentions)=> 
-        await _http.GetFromJsonAsync<UserMentionsEnvelope>($"/user/mention{mentions.GetQueryString()}");
+        await _http.GetFromJsonAsync<UserMentionsEnvelope>($"/user/mention?{mentions.GetQueryString()}");
 
+    public async Task<RepliesEnvelope> GetReplies(GetReplies replies)=> 
+        await _http.GetFromJsonAsync<RepliesEnvelope>($"/user/reply?{replies.GetQueryString()}");
+        
+
+    public async Task<ReportCount> GetReportCount(int communityId) =>
+        await _http.GetFromJsonAsync<ReportCount>($"/user/report_count?community_id={communityId}");
     
+    
+    public async Task<UnreadCount> GetUnread() =>
+        await _http.GetFromJsonAsync<UnreadCount>($"/user/unread_count");
+
+    public async Task<SiteEnvelope> LeaveAdmin()
+    {
+        var res = await _http.PostAsJsonAsync<Dictionary<string,string>>("/user/leave_admin",new());
+        return await res.Content.ReadFromJsonAsync<SiteEnvelope>();
+    }
+
+
+
 }

@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Web;
 using Lemmy.Net.Client.Models;
 
 namespace Lemmy.Net.Client.Components;
@@ -103,4 +104,8 @@ public class PostComponent
         var res = await _http.GetAsync($"/post/list{q}");
         return await res.Content.ReadFromJsonAsync<PostsEnvelope>();
     }
+    
+    public async Task<SiteMetadataEnvelope> GetMetadata(Uri url) =>
+        await _http.GetFromJsonAsync<SiteMetadataEnvelope>($"/post/site_metadata?url={HttpUtility.UrlEncode(url.ToString())}");
+
 }
