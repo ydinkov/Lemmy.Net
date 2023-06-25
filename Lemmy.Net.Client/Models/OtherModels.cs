@@ -32,11 +32,7 @@ public class BlockCommunity
     public int CommunityId { get; set; }
 }
 
-public class BlockPersonForm
-{
-    public bool Block { get; set; }
-    public int PersonId { get; set; }
-}
+
 
 public class ChangePassword
 {

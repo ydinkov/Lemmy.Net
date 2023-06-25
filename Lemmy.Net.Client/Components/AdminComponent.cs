@@ -25,6 +25,8 @@ public class AdminComponent
         return await res.Content.ReadFromJsonAsync<AdminsEnvelope>();
     }
 
+    
+    
     public class RegistrationApplication
     {
         [JsonPropertyName("admin_id")] public int AdminId { get; private set; }

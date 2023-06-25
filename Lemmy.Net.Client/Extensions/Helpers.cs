@@ -1,4 +1,5 @@
-﻿using Lemmy.Net.Client;
+﻿using System.Web;
+using Lemmy.Net.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -18,21 +19,33 @@ namespace Lemmy.Net.Client.Models
         /// This parameter is optional and can be null.</param>
         /// <param name="saveToken">An action to save the JWT token for a username after it's retrieved from a login request.
         /// This parameter is optional and can be null.</param>
-        public static void AddLemmyClient(this IServiceCollection services, string lemmyInstance,  string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null,string apiVersion="v3")
+        public static void AddLemmyClient(this IServiceCollection services, string lemmyInstance, string username,
+            string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null,
+            string apiVersion = "v3")
         {
-
             lemmyInstance = lemmyInstance.Replace("https://", "");
             lemmyInstance = lemmyInstance.Split("/").First();
             var uri = new Uri($"https://{lemmyInstance}/api/{apiVersion}/");
-            
-            services.AddHttpClient<ILemmyService, LemmyService>(client =>
+
+            services.AddHttpClient<ILemmyService, LemmyService>(client => { client.BaseAddress = uri; })
+                .ConfigurePrimaryHttpMessageHandler(() =>
+                {
+                    return new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken);
+                });
+        }
+
+        public static string GetQueryString(this object obj)
+        {
+            var properties = obj.GetType().GetProperties();
+            var query = HttpUtility.ParseQueryString(string.Empty);
+
+            foreach (var property in properties)
             {
-                client.BaseAddress = uri;
-            })
-            .ConfigurePrimaryHttpMessageHandler(() =>
-            {
-                return new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken);
-            });
+                var value = property.GetValue(obj);
+                query[property.Name] = value != null ? value.ToString() : string.Empty;
+            }
+
+            return query.ToString();
         }
     }
 }

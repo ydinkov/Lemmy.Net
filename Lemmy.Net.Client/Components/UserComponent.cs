@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Lemmy.Net.Client.Models;
 
 namespace Lemmy.Net.Client.Components;
@@ -12,7 +13,15 @@ public class UserComponent
     {
         this._http = _http;
     }
+
+ 
     
+    public async Task<BannedUsersEnvelope> GetBanned() =>
+        await _http.GetFromJsonAsync<BannedUsersEnvelope>("/user/banned");
+    
+    public async Task<BannedUsersEnvelope> GetCaptcha() =>
+        await _http.GetFromJsonAsync<BannedUsersEnvelope>("/user/get_captcha");
+        
     public async Task<LoginResponse> Login(Login login)
     {
         var res = await _http.PostAsync("/api/v3/user/login", JsonContent.Create(login));
@@ -48,11 +57,19 @@ public class UserComponent
         var res = await _http.PostAsJsonAsync("/community/block", new{block=false, person_id = userId});
         return await res.Content.ReadFromJsonAsync<BlockUser>();
     }
-
+  
     public async Task<DeleteAccountResponse> Delete(string password)
     {
         var res = await _http.PostAsJsonAsync("/user/delete_account", new { password = password});
         return await res.Content.ReadFromJsonAsync<DeleteAccountResponse>();
     }
 
+    public async Task<UserDetails> GetDetails(GetUserDetails details)=> 
+        await _http.GetFromJsonAsync<UserDetails>($"/user?{details.GetQueryString()}");
+
+
+    public async Task<UserMentionsEnvelope> GetMentions(GetUserMentions mentions)=> 
+        await _http.GetFromJsonAsync<UserMentionsEnvelope>($"/user/mention{mentions.GetQueryString()}");
+
+    
 }

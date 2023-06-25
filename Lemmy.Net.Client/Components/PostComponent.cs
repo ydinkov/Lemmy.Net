@@ -55,22 +55,22 @@ public class PostComponent
         var res = await _http.PostAsJsonAsync("/post/like", new {score=0, post_id = postId});
         return res.IsSuccessStatusCode;
     }
-    public async Task<bool> Feature(int postId,string type)
+    public async Task<PostEnvelope> Feature(int postId,string type)
     {
         var res = await _http.PostAsJsonAsync("/post/feature", new {feture_type=type,featured=true, post_id = postId});
-        return res.IsSuccessStatusCode;
+        return await res.Content.ReadFromJsonAsync<PostEnvelope>();
     }
     
-    public async Task<bool> Unfeature(int postId)
+    public async Task<PostEnvelope> Unfeature(int postId)
     {
         var res = await _http.PostAsJsonAsync("/post/feature", new {feture_type=string.Empty,featured=false, post_id = postId});
-        return res.IsSuccessStatusCode;
+        return await res.Content.ReadFromJsonAsync<PostEnvelope>();
     }
     
-    public async Task<bool> Edit(EditPost edit)
+    public async Task<PostEnvelope> Edit(EditPost edit)
     {
         var res = await _http.PutAsJsonAsync("/post", edit);
-        return res.IsSuccessStatusCode;
+        return await res.Content.ReadFromJsonAsync<PostEnvelope>();
     }
     
     public async Task<bool> Report(int postId, string reason_for_report)

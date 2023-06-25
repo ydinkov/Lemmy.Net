@@ -12,18 +12,22 @@ public class CommunityComponent
     {
         this._http = _http;
     }
-   
 
-    public async Task<bool> Edit(EditCommunity edit)
+    public async Task<CommunityEnvelope> Edit(EditCommunity edit)
     {
         var res = await _http.PutAsJsonAsync("/community", edit);
-        return res.IsSuccessStatusCode;
+        return await res.Content.ReadFromJsonAsync<CommunityEnvelope>();
     }
-
     
     public async Task<CommunityEnvelope> Create(CreateCommunity create)
     {
         var res = await _http.PostAsJsonAsync("/community", create);
+        return await res.Content.ReadFromJsonAsync<CommunityEnvelope>();
+    }
+    
+    public async Task<CommunityEnvelope> Follow(FollowCommunity follow)
+    {
+        var res = await _http.PostAsJsonAsync("/community/follow", follow);
         return await res.Content.ReadFromJsonAsync<CommunityEnvelope>();
     }
     
@@ -63,6 +67,4 @@ public class CommunityComponent
         var res = await _http.PostAsJsonAsync("/community/block", new{block=false, community_id = communityId});
         return await res.Content.ReadFromJsonAsync<BlockCommunity>();
     }
-    
-    
 }

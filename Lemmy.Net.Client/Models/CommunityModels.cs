@@ -46,6 +46,12 @@ public class CommunityRoot
     public Counts Counts { get; set; }
 }
 
+public class FollowCommunity
+{
+    public int CommunityId { get; set; }
+    public bool Follow { get; set; }
+}
+
 
 public class CommunitiesEnvelope
 {
