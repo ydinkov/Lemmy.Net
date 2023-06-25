@@ -53,6 +53,10 @@ public class CommentComponent
         var res = await _http.PostAsJsonAsync("/comment", new{comment_id = commentId,delete= true});
         return res.IsSuccessStatusCode;
     }
+
+    public async Task<CommentReportsEnvelope> Reports(CommentReportsRequest reports) =>
+        await _http.GetFromJsonAsync<CommentReportsEnvelope>($"/comment/report/list?{reports.GetQueryString()}");
+    
     public async Task<CommentsEnvelope> List(string query)
     {
         var q = string.IsNullOrWhiteSpace(query) ? string.Empty : $"?{query}";

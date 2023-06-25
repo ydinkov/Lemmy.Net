@@ -24,13 +24,18 @@ public class AdminComponent
         var res = await _http.PutAsJsonAsync("/admin/registration_application/approve", admin);
         return await res.Content.ReadFromJsonAsync<AdminsEnvelope>();
     }
-
     
-   
     public async Task<UnreadRegistrationApplicationCount> GetUnreadRegistration() =>
         await _http.GetFromJsonAsync<UnreadRegistrationApplicationCount>("/admin/registration_application/count");
 
 
-  
+    public async Task<RegistrationApplicationsEnvelope> GetApplications(RegistrationApplicationsRequest applications) =>
+        await _http.GetFromJsonAsync<RegistrationApplicationsEnvelope>($"/admin/registration_application/list?{applications.GetQueryString()}");
+
+
+    public class RegistrationApplicationsEnvelope
+    {
+        public IList<RegistrationApplicationRoot> RegistrationApplications { get; set; }
+    }
     
 }

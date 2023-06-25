@@ -108,3 +108,45 @@ public class CommentReply
     public bool Read { get; set; }
     public int RecipientId { get; set; }
 }
+
+public class CommentReportRoot
+{
+    public Comment Comment { get; set; }
+    public User CommentCreator { get; set; }
+    public CommentReport CommentReport { get; set; }
+    public Community Community { get; set; }
+    public CommentCounts Counts { get; set; }
+    public User Creator { get; set; }
+    public bool CreatorBannedFromCommunity { get; set; }
+    public int? MyVote { get; set; }
+    public Post Post { get; set; }
+    public User Resolver { get; set; }
+
+}
+
+public class CommentReport
+    {
+         public int CommentId { get; set;}
+         public int CreatorId { get; set;}
+         public int Id { get; set;}
+         public string OriginalCommentText { get; set;}
+         public string Published { get; set;}
+         public string Reason { get; set;}
+         public bool Resolved { get; set;}
+         public int? ResolverId { get; set;}
+         public string? Updated { get; set;}
+    }
+    
+public class CommentReportsEnvelope
+{
+    public IList<CommentReportRoot> CommentReports { get; set; }
+}
+
+public class CommentReportsRequest
+{
+    public int? CommunityId { get; set; }
+    public int? Limit { get; set; }
+    public int? Page { get; set; }
+    public bool? UnresolvedOnly { get; set; }
+
+}

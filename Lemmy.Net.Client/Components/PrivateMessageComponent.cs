@@ -62,6 +62,9 @@ public class PrivateMessageComponent
         return await res.Content.ReadFromJsonAsync<PrivateMessageReportEnvelope>();
     }
 
+    public async Task<PrivateMessageReportEnvelope> Reports(PrivateMessageReportsRequest reports) =>
+        await _http.GetFromJsonAsync<PrivateMessageReportEnvelope>($"/private_message/report/list?{reports.GetQueryString()}");
+
 
 
 

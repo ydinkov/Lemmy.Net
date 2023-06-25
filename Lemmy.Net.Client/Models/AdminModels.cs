@@ -39,6 +39,13 @@ public class RegistrationApplicationRoot
 }
 
 
+public class RegistrationApplicationsRequest
+{
+    public int? Limit { get; set; }
+    public int? Page { get; set; }
+    public bool? UnreadOnly { get; set; }
+}
+
 public class RegistrationApplication
 {
     [JsonPropertyName("admin_id")] public int AdminId { get; private set; }

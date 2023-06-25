@@ -108,4 +108,8 @@ public class PostComponent
     public async Task<SiteMetadataEnvelope> GetMetadata(Uri url) =>
         await _http.GetFromJsonAsync<SiteMetadataEnvelope>($"/post/site_metadata?url={HttpUtility.UrlEncode(url.ToString())}");
 
+    
+    public async Task<PostReportsEnvelope> Reports(PostReportsRequest reports) =>
+        await _http.GetFromJsonAsync<PostReportsEnvelope>($"/post/report/list?{reports.GetQueryString()}");
+
 }

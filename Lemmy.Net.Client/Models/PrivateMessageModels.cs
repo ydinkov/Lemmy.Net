@@ -70,3 +70,12 @@ public class PrivateMessage
     [JsonPropertyName("recipient_id")] public int RecipientId { get; private set; }
     public string? Updated { get; private set; }
 }
+
+public class PrivateMessageReportsRequest
+{
+    
+    public int? Limit { get; set; }
+    public int? Page { get; set; }
+    public bool? UnresolvedOnly { get; set; }
+
+}

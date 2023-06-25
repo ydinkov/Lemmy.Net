@@ -131,7 +131,49 @@ namespace Lemmy.Net.Client.Models
     {
         public SiteMetadata Metadata { get; set; }
     }
+
+
+    public class PostReportsEnvelope
+    {
+        public IList<PostReportRoot> PostReports { get; set; }
+    }
+    public class PostReportRoot
+    {
+        public Community Community { get; set;}
+        public PostCounts Counts { get; set;}
+         public User Creator { get; set;}
+         public bool CreatorBannedFromCommunity { get; set;}
+         public int? MyVote { get; set;}
+         public Post Post { get; set;}
+         public User PostCreator { get; set;}
+         public PostReport PostReport { get; set;}
+         public User Resolver { get; set;}
+    }
    
+    
+    public class PostReport
+    {
+         public int CreatorId { get; set;}
+         public int Id { get; set;}
+         public string? OriginalPostBody { get; set;}
+         public string OriginalPostName { get; set;}
+         public string? OriginalPostUrl { get; set;}
+         public int PostId { get; set;}
+         public string Published { get; set;}
+         public string Reason { get; set;}
+         public bool Resolved { get; set;}
+         public int? ResolverId { get; set;}
+         public string? Updated { get; set;}
+    }
+    
+    public class PostReportsRequest
+    {
+        public int? CommunityId { get; set; }
+        public int? Limit { get; set; }
+        public int? Page { get; set; }
+        public bool? UnresolvedOnly { get; set; }
+
+    }
     
 
 }
