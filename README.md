@@ -69,22 +69,16 @@ namespace YourNamespace.Controllers
 - CRUD for Posts (and voting)
 - CRUD for Comments (and voting)
 - CRUD for Private messages (and reporting)
+- Site actions
+- Reporting and Resolving
+- Modding and Admin actions
+- Captachs, registrations, password resets and email validation
+- Replies, Mentions and Notifications
 
 ## TODO
 - Better querying
-- Support for Site actions
-    - CRUD
-    - Metadata
-    - Registrations
-- Mentions
-- User Management
-    - Password Resets
-    - Captchas
-    - Personal Details
-- Reports
-    - Comments
-    - Post
-- Responses
 - RSS links
-- Mod and Admin Actions
 - Test Coverage
+- Polly retry policies
+- Model reuse
+- Json snake-case naming policy
