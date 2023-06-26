@@ -22,22 +22,18 @@ public class UserComponent
     public async Task<BannedUsersEnvelope> GetCaptcha() =>
         await _http.GetFromJsonAsync<BannedUsersEnvelope>("/user/get_captcha");
         
-    public async Task<LoginResponse> Login(Login login)
+    public async Task<LoginEnvelope> Login(Login login)
     {
         var res = await _http.PostAsync("/api/v3/user/login", JsonContent.Create(login));
-        return await res.Content.ReadFromJsonAsync<LoginResponse>();
+        return await res.Content.ReadFromJsonAsync<LoginEnvelope>();
     }
     
-    public async Task<LoginResponse> ChangePassword(ChangePassword newPassword)
-    {
-        var res = await _http.PostAsJsonAsync("/user/change_password", newPassword);
-        return await res.Content.ReadFromJsonAsync<LoginResponse>();
-    }
 
-    public async Task<LoginResponse> ChangePassword(string password)
+
+    public async Task<LoginEnvelope> ChangePassword(string password)
     {
         var res = await _http.PostAsJsonAsync("/user/delete", new {password = password});
-        return await res.Content.ReadFromJsonAsync<LoginResponse>();
+        return await res.Content.ReadFromJsonAsync<LoginEnvelope>();
     }
 
     public async Task<PersonRoot> Ban(int userId, bool deleteData = true)
@@ -87,7 +83,38 @@ public class UserComponent
         var res = await _http.PostAsJsonAsync<Dictionary<string,string>>("/user/leave_admin",new());
         return await res.Content.ReadFromJsonAsync<SiteEnvelope>();
     }
+    
+    public async Task<RepliesEnvelope> MarkAllAsReaddw()
+    {
+        var res = await _http.PostAsJsonAsync<Dictionary<string,string>>("/user/mark_all_as_read",new());
+        return await res.Content.ReadFromJsonAsync<RepliesEnvelope>();
+    }
 
+    public async Task<bool> PasswordReset(string email)
+    {
+        var res = await _http.PostAsJsonAsync("/user/password_reset",new{email=email});
+        return res.IsSuccessStatusCode;
+    }
+    
+    public async Task<LoginEnvelope> ChangePassword(ChangePassword newPassword)
+    {
+        var res = await _http.PostAsJsonAsync("/user/change_password", newPassword);
+        return await res.Content.ReadFromJsonAsync<LoginEnvelope>();
+    }
 
+    
+    
+    public async Task<UserMentionEnvelope> MarkMentionAsRead(int personMentionId)
+    {
+        var res = await _http.PostAsJsonAsync("/user/mention/mark_as_read",new{person_mention_id=personMentionId, read = true});
+        return await res.Content.ReadFromJsonAsync<UserMentionEnvelope>();
+    }
+
+    public async Task<LoginEnvelope> Register(RegistrationRequest registration)
+    {
+        var res = await _http.PostAsJsonAsync("/user/register",registration);
+        return await res.Content.ReadFromJsonAsync<LoginEnvelope>();
+    }
+    
 
 }

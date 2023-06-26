@@ -121,22 +121,28 @@ public class CommentReportRoot
     public int? MyVote { get; set; }
     public Post Post { get; set; }
     public User Resolver { get; set; }
-
 }
 
 public class CommentReport
-    {
-         public int CommentId { get; set;}
-         public int CreatorId { get; set;}
-         public int Id { get; set;}
-         public string OriginalCommentText { get; set;}
-         public string Published { get; set;}
-         public string Reason { get; set;}
-         public bool Resolved { get; set;}
-         public int? ResolverId { get; set;}
-         public string? Updated { get; set;}
-    }
-    
+{
+    public int CommentId { get; set; }
+    public int CreatorId { get; set; }
+    public int Id { get; set; }
+    public string OriginalCommentText { get; set; }
+    public string Published { get; set; }
+    public string Reason { get; set; }
+    public bool Resolved { get; set; }
+    public int? ResolverId { get; set; }
+    public string? Updated { get; set; }
+}
+
+public class CommentEnvelope
+{
+    public CommentRoot CommentView { get; set; }
+    public string? FormId { get; set; }
+    public int[] RecipientIds { get; set; }
+}
+
 public class CommentReportsEnvelope
 {
     public IList<CommentReportRoot> CommentReports { get; set; }
@@ -148,5 +154,4 @@ public class CommentReportsRequest
     public int? Limit { get; set; }
     public int? Page { get; set; }
     public bool? UnresolvedOnly { get; set; }
-
 }

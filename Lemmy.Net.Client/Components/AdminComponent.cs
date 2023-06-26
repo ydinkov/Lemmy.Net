@@ -25,6 +25,32 @@ public class AdminComponent
         return await res.Content.ReadFromJsonAsync<AdminsEnvelope>();
     }
     
+    
+    public async Task<bool> PurgeComment(int commentId, string reason)
+    {
+        var res = await _http.PutAsJsonAsync("/admin/purge/comment",new{comment_id = commentId, reason = reason});
+        return (await res.Content.ReadFromJsonAsync<dynamic>()).success;
+    }
+    
+    public async Task<bool> PurgeCommunity(int communityId, string reason)
+    {
+        var res = await _http.PutAsJsonAsync("/admin/purge/community",new{community_id = communityId, reason = reason});
+        return (await res.Content.ReadFromJsonAsync<dynamic>()).success;
+    }
+    
+    public async Task<bool> PurgeUser(int userId, string reason)
+    {
+        var res = await _http.PutAsJsonAsync("/admin/purge/person",new{person_id = userId, reason = reason});
+        return (await res.Content.ReadFromJsonAsync<dynamic>()).success;
+    }
+    
+    public async Task<bool> PurgePost(int postId, string reason)
+    {
+        var res = await _http.PutAsJsonAsync("/admin/purge/post",new{post_id = postId, reason = reason});
+        return (await res.Content.ReadFromJsonAsync<dynamic>()).success;
+    }
+    
+    
     public async Task<UnreadRegistrationApplicationCount> GetUnreadRegistration() =>
         await _http.GetFromJsonAsync<UnreadRegistrationApplicationCount>("/admin/registration_application/count");
 

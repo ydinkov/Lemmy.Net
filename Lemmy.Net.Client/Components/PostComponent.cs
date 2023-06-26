@@ -111,5 +111,11 @@ public class PostComponent
     
     public async Task<PostReportsEnvelope> Reports(PostReportsRequest reports) =>
         await _http.GetFromJsonAsync<PostReportsEnvelope>($"/post/report/list?{reports.GetQueryString()}");
+    
+    public async Task<PostEnvelope> MarkAsRead(int postId)
+    {
+        var res = await _http.PostAsJsonAsync("/post/mark_as_read", new{post_id = postId, read =true});
+        return await res.Content.ReadFromJsonAsync<PostEnvelope>();
+    }
 
 }

@@ -75,7 +75,7 @@ public class Login
     public string Password { get; set; }
 }
 
-public class LoginResponse
+public class LoginEnvelope
 {
     public string Jwt { get; set; }
 }
@@ -155,6 +155,12 @@ public class GetUserMentions
     public bool? UnreadOnly { get; set; }
 }
 
+public class UserMentionEnvelope
+{
+    public UserMentionRoot PersonMentionView { get; set; }
+}
+
+
 public class UserMentionsEnvelope
 {
     public IList<UserMentionRoot> Mentions { get; set; }
@@ -210,4 +216,16 @@ public class UnreadCount
     public int Mentions { get; set; }
     public int PrivateMessages { get; set; }
     public int Replies { get; set; }
+}
+
+public class RegistrationRequest
+{
+    public string? CaptchaAnswer { get; set; }
+    public string? CaptchaUuid { get; set; }
+    public string? Email { get; set; }
+    public string? Honeypot { get; set; }
+    public string Password { get; set; }
+    public string PasswordVerify { get; set; }
+    public bool ShowNsfw { get; set; }
+    public string Username { get; set; }
 }

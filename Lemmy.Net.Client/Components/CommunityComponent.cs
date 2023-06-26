@@ -36,6 +36,13 @@ public class CommunityComponent
         var res = await _http.PostAsJsonAsync("/comment", new{community_id = communityId,delete= true});
         return res.IsSuccessStatusCode;
     }
+    
+    public async Task<CommunityEnvelope> Remove(int communityId, string reason)
+    {
+        var res = await _http.PostAsJsonAsync("/comment/remove",new{community_id = communityId,reason = reason, removed= true});
+        return await res.Content.ReadFromJsonAsync<CommunityEnvelope>();
+    }
+    
     public async Task<CommunitiesEnvelope> List(string? query = null)
     {
         var q = string.IsNullOrWhiteSpace(query) ? string.Empty : $"?{query}";

@@ -57,6 +57,19 @@ public class CommentComponent
     public async Task<CommentReportsEnvelope> Reports(CommentReportsRequest reports) =>
         await _http.GetFromJsonAsync<CommentReportsEnvelope>($"/comment/report/list?{reports.GetQueryString()}");
     
+    public async Task<CommentEnvelope> MarkReplyAsRead(int replyId)
+    {
+        var res = await _http.PostAsJsonAsync("/comment/mark_as_read",new{comment_reply_id = replyId, read = true});
+        return await res.Content.ReadFromJsonAsync<CommentEnvelope>();
+    }
+    
+    
+    public async Task<CommentEnvelope> Remove(int commentId, string reason)
+    {
+        var res = await _http.PostAsJsonAsync("/comment/remove",new{comment_id = commentId, reason = reason, removed = true});
+        return await res.Content.ReadFromJsonAsync<CommentEnvelope>();
+    }
+    
     public async Task<CommentsEnvelope> List(string query)
     {
         var q = string.IsNullOrWhiteSpace(query) ? string.Empty : $"?{query}";
@@ -69,6 +82,5 @@ public class CommentComponent
         {
             return null;
         }
-        
     }
 }

@@ -53,7 +53,7 @@ namespace Nibblebit.Lemmy.Tests
             //41394
             var c = new CreateCommunity
             {
-                Name = "TestPleaseIgnore5", Title = "Bla2"
+                Name = "TestPleaseIgnore6", Title = "Bla3"
             };
             var communities = await _lemmy.Community.Create(c);
             communities.CommunityView.Community.Id.Should().NotBe(null);

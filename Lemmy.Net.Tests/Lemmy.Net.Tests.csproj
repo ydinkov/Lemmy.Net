@@ -36,4 +36,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="local.config.json" />
+    <Content Include="local.config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
