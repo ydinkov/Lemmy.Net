@@ -74,4 +74,10 @@ public class CommunityComponent
         var res = await _http.PostAsJsonAsync("/community/block", new{block=false, community_id = communityId});
         return await res.Content.ReadFromJsonAsync<BlockCommunity>();
     }
+    
+    public async Task<CommunityEnvelope> Transfer(int communityId, int userId)
+    {
+        var res = await _http.PostAsJsonAsync("/community/transfer", new{user_id=userId, community_id = communityId});
+        return await res.Content.ReadFromJsonAsync<CommunityEnvelope>();
+    }
 }

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Lemmy.Net.Client.Models;
 
 public class ApproveRegistrationApplication
@@ -32,11 +34,30 @@ public class BlockCommunity
     public int CommunityId { get; set; }
 }
 
-
-
 public class ChangePassword
 {
-    public string NewPassword { get; set; } = string.Empty;
-    public string NewPasswordVerify { get; set; } = string.Empty;
-    public string OldPassword { get; set; } = string.Empty;
+    public string NewPassword { get; set; }
+    public string NewPasswordVerify { get; set; }
+    public string OldPassword { get; set; }
+}
+
+public class SearchRequest
+{
+    public int? CommunityId { get; set; }
+    public string? CommunityName { get; set; }
+    public int? CreatorId { get; set; }
+    public int? Limit { get; set; }
+    public string? ListingType { get; set; }
+    public string Q { get; set; }
+    public string? SortType { get; set; }
+    [JsonPropertyName("type_")] public string? Type { get; set; }
+}
+
+public class SearchEnvelope
+{
+    public IList<CommentRoot> Comments { get; set; }
+    public IList<CommunityRoot> Communities { get; set; }
+    public IList<PostRoot> Posts { get; set; }
+    public string Type { get; set; }
+    public IList<UserRoot> Users { get; set; }
 }

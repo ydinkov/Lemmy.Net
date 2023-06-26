@@ -48,6 +48,14 @@ public class CommentComponent
         return await res.Content.ReadFromJsonAsync<CommentReportEnvelope>();
     }
     
+    public async Task<CommentEnvelope> Save(int commentId)
+    {
+        var res = await _http.PutAsJsonAsync("/comment/save", new{comment_id = commentId,save = true});
+        return await res.Content.ReadFromJsonAsync<CommentEnvelope>();
+    }
+    
+    
+    
     public async Task<bool> Create(CreateComment createComment)
     {
         var res = await _http.PostAsJsonAsync("/comment", createComment);

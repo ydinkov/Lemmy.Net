@@ -116,5 +116,18 @@ public class UserComponent
         return await res.Content.ReadFromJsonAsync<LoginEnvelope>();
     }
     
+    public async Task<LoginEnvelope> SaveSetting(SaveUserSettingsRequest req)
+    {
+        var res = await _http.PutAsJsonAsync("/user/save_user_settings", req);
+        return await res.Content.ReadFromJsonAsync<LoginEnvelope>();
+    }
+
+    public async Task<bool> VerifyEmail(string token)
+    {
+        var res = await _http.PostAsJsonAsync("/user/verify_email",new{token = token});
+        return res.IsSuccessStatusCode;
+    }
+
+    
 
 }
