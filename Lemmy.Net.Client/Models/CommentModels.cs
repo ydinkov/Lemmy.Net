@@ -148,6 +148,11 @@ public class CommentReportsEnvelope
     public IList<CommentReportRoot> CommentReports { get; set; }
 }
 
+public class CommentReportEnvelope
+{
+    public CommentReportRoot CommentReportView { get; set; }
+}
+
 public class CommentReportsRequest
 {
     public int? CommunityId { get; set; }

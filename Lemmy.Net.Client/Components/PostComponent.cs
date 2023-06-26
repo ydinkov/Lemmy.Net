@@ -117,5 +117,12 @@ public class PostComponent
         var res = await _http.PostAsJsonAsync("/post/mark_as_read", new{post_id = postId, read =true});
         return await res.Content.ReadFromJsonAsync<PostEnvelope>();
     }
+    
+    public async Task<PostReportEnvelope> ResolveReport(int reportId)
+    {
+        var res = await _http.PutAsJsonAsync("/post/report/resolve", new{report_id = reportId, resolved =true});
+        return await res.Content.ReadFromJsonAsync<PostReportEnvelope>();
+    }
+
 
 }

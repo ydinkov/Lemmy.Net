@@ -38,8 +38,14 @@ public class CommentComponent
     
     public async Task<bool> Report(int postId, string reason_for_report)
     {
-        var res = await _http.PostAsJsonAsync("/post/report", new{postid = postId,reason = reason_for_report});
+        var res = await _http.PostAsJsonAsync("/post/report", new{post_id = postId,reason = reason_for_report});
         return res.IsSuccessStatusCode;
+    }
+    
+    public async Task<CommentReportEnvelope> Report(int reportId)
+    {
+        var res = await _http.PutAsJsonAsync("/comment/report/resolve", new{report_id = reportId,resolved = true});
+        return await res.Content.ReadFromJsonAsync<CommentReportEnvelope>();
     }
     
     public async Task<bool> Create(CreateComment createComment)

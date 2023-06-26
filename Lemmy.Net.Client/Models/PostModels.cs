@@ -136,7 +136,14 @@ namespace Lemmy.Net.Client.Models
     public class PostReportsEnvelope
     {
         public IList<PostReportRoot> PostReports { get; set; }
+        
     }
+    
+    public class PostReportEnvelope
+    {
+        public PostReportRoot PostReportView { get; set; }
+    }
+    
     public class PostReportRoot
     {
         public Community Community { get; set;}
