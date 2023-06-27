@@ -22,10 +22,18 @@ public class UserComponent
     public async Task<BannedUsersEnvelope> GetCaptcha() =>
         await _http.GetFromJsonAsync<BannedUsersEnvelope>("/user/get_captcha");
         
-    public async Task<LoginEnvelope> Login(Login login)
+    public async Task<LoginEnvelope> LoginAsync(string username, string password, CancellationToken c = default)
     {
-        var res = await _http.PostAsync("/api/v3/user/login", JsonContent.Create(login));
-        return await res.Content.ReadFromJsonAsync<LoginEnvelope>();
+        var res = await _http.PostAsJsonAsync("/api/v3/user/login", new{username_or_email = username, password = password},c);
+        try
+        {
+            var res2 = await res.Content.ReadFromJsonAsync<LoginEnvelope>(cancellationToken: c);
+            return res2;
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
     }
     
 

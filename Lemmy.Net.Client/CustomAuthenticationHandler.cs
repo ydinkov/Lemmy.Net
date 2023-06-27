@@ -33,14 +33,19 @@ namespace Lemmy.Net.Client {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var jwtToken = await _retrieveToken(_username);
-            var defaultPath = $"/api/{_defaultVersion}";
             
-            var builder = new UriBuilder(request.RequestUri)
+            
+            var defaultPath = $"/api/{_defaultVersion}";
+            // Retry policies are messing with this
+            //I don't know what I'm doing with
+            if (!request.RequestUri.ToString().Contains(defaultPath))
             {
-                Path =  $"{defaultPath}{request.RequestUri.AbsolutePath}"
-            };
-
-            request.RequestUri = builder.Uri;
+                var builder = new UriBuilder(request.RequestUri)
+                {
+                    Path =  $"{defaultPath}{request.RequestUri.AbsolutePath}"
+                };
+                request.RequestUri = builder.Uri;
+            }
 
             //return await base.SendAsync(request, cancellationToken);
 
@@ -63,7 +68,7 @@ namespace Lemmy.Net.Client {
                     throw new ApplicationException($"Failed to log in: {loginResponse.StatusCode}");
                 }
 
-                var loginContent = await JsonSerializer.DeserializeAsync<Dictionary<string, object>>(await loginResponse.Content.ReadAsStreamAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                var loginContent = await JsonSerializer.DeserializeAsync<Dictionary<string, object>>(await loginResponse.Content.ReadAsStreamAsync(cancellationToken), new JsonSerializerOptions { PropertyNameCaseInsensitive = true }, cancellationToken);
                 jwtToken = loginContent["jwt"].ToString();
 
                 // Save the token
@@ -86,12 +91,12 @@ namespace Lemmy.Net.Client {
                 request.Content = JsonContent.Create(proxy);
             }
             
-            var res = await base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken);
 
-            return res.IsSuccessStatusCode
-                ? res
-                : throw new HttpRequestException((await res.Content.ReadAsStringAsync(cancellationToken)), null,
-                    res.StatusCode);
+           //return res.IsSuccessStatusCode
+           //    ? res
+           //    : throw new HttpRequestException((await res.Content.ReadAsStringAsync(cancellationToken)), null,
+           //        res.StatusCode);
  
             
     

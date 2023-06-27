@@ -53,10 +53,17 @@ namespace Nibblebit.Lemmy.Tests
             //41394
             var c = new CreateCommunity
             {
-                Name = "TestPleaseIgnore6", Title = "Bla3"
+                Name = "TestPleaseIgnore8", Title = "Bla8"
             };
             var communities = await _lemmy.Community.Create(c);
-            communities.CommunityView.Community.Id.Should().NotBe(null);
+            try
+            {
+                communities.CommunityView.Community.Id.Should().NotBe(null);
+            }
+            catch (Exception e)
+            {
+                e.Should().BeNull();
+            }
             var r = await _lemmy.Community.Delete(communities.CommunityView.Community.Id);
             r.Should().BeTrue();
         }
@@ -90,10 +97,11 @@ namespace Nibblebit.Lemmy.Tests
         [Fact]
         public async Task CreatePostTestAsync()
         {
+            Console.WriteLine("Test post create");
             var post = new CreatePost
             {
                 CommunityId = 41372,
-                Name = "Unit Test Post",
+                Name = "Unit Test Post3",
                 Body = "Hello this was created for a unit test"
             };
             var res = await _lemmy.CreatePostsAsync(post);

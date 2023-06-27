@@ -74,11 +74,11 @@ namespace YourNamespace.Controllers
 - Modding and Admin actions
 - Captachs, registrations, password resets and email validation
 - Replies, Mentions and Notifications
+- Exponential retry policy
 
 ## TODO
 - Better querying
 - RSS links
 - Test Coverage
-- Polly retry policies
 - Model reuse
 - Json snake-case naming policy
