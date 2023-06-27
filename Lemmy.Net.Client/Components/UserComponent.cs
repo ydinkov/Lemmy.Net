@@ -135,6 +135,10 @@ public class UserComponent
         var res = await _http.PostAsJsonAsync("/user/verify_email",new{token = token});
         return res.IsSuccessStatusCode;
     }
+    
+    public async Task<SearchEnvelope> GetReportCount(SearchRequest search) =>
+        await _http.GetFromJsonAsync<SearchEnvelope>($"/user/report_count?{search.GetQueryString()}");
+    
 
     
 
