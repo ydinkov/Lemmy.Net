@@ -16,7 +16,7 @@
 
     <Authors>Yasen Dinkov</Authors>
 
-    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     
   </PropertyGroup>
 
