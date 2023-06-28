@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <VersionPrefix>0.5.5</VersionPrefix>
+    <VersionPrefix>0.5.6</VersionPrefix>
     <Nullable>enable</Nullable>
 
     <PackageId>Lemmy.Net.Client</PackageId>
