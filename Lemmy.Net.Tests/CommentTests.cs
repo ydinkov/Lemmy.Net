@@ -10,9 +10,19 @@ public class CommentTests : AbstractTest
     [Fact]
     public async Task GetComments()
     {
-        var comments = await _lemmy.Comment.List("");
+        var comments = await _lemmy.Comment.List(new CommentsRequest());
         comments.Comments.Should().NotBeEmpty();
+        comments.Comments.Should().AllSatisfy(x => x.Should().NotBeNull());
     }
     
+    
+    [Fact]
+    public async Task QueryComments()
+    {
+        var comments = await _lemmy.Comment.List(new CommentsRequest{CommunityId = 2});
+        comments.Comments.Should().NotBeEmpty();
+        comments.Comments.Should().AllSatisfy(x => x.Community.Id.Should().Be(2));
+    }
+
 
 }

@@ -12,16 +12,16 @@ public class Community
     public DateTime? Updated { get; set; }
     public bool Deleted { get; set; }
     public bool Nsfw { get; set; }
-    [JsonPropertyName("actor_id")] public string ActorId { get; set; }
+    public string ActorId { get; set; }
     public bool Local { get; set; }
     public object Icon { get; set; }
     public object Banner { get; set; }
     public bool Hidden { get; set; }
 
-    [JsonPropertyName("posting_restricted_to_mods")]
+    
     public bool PostingRestrictedToMods { get; set; }
 
-    [JsonPropertyName("instance_id")] public int InstanceId { get; set; }
+    public int InstanceId { get; set; }
 }
 
 public class Counts
@@ -60,7 +60,8 @@ public class CommunitiesEnvelope
 
 public class CommunityEnvelope
 {
-    [JsonPropertyName("community_view")] public CommunityRoot CommunityView { get; set; }
+  
+    public CommunityRoot CommunityView { get; set; }
 }
 
 public class CreateCommunity
@@ -100,12 +101,12 @@ public class BanUser
 public class BanResponse
 {
     public bool Banned { get; set; }
-    [JsonPropertyName("person_view")] public UserRoot PersonView { get; set; }
+    public UserRoot PersonView { get; set; }
 }
 
 
 public class CommunityBlock
 {
     public bool Blocked { get; set; }
-    [JsonPropertyName("community_view")] public UserRoot CommunityView { get; set; }
+    public UserRoot CommunityView { get; set; }
 }

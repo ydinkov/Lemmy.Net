@@ -1,5 +1,6 @@
 ﻿using Lemmy.Net.Client.Models;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace Lemmy.Net.Client.Components
 {
@@ -16,23 +17,23 @@ namespace Lemmy.Net.Client.Components
 
         public async Task<SiteEnvelope> CreateSite(CreateSite site)
         {
-            var res = await _http.PostAsJsonAsync("/site", site);
-            return await res.Content.ReadFromJsonAsync<SiteEnvelope>();
+            var res = await _http.PostAsJsonAsync("/site", site,options:Json.Options);
+            return await res.Content.ReadFromJsonAsync<SiteEnvelope>(options:Json.Options);
         }
 
 
         public async Task<SiteEnvelope> GetSite() =>
-            await _http.GetFromJsonAsync<SiteEnvelope>("/site");
+            await _http.GetFromJsonAsync<SiteEnvelope>("/site",options:Json.Options);
 
 
         public async Task<SiteEnvelope> EditSite(EditSite site)
         {
-            var res = await _http.PutAsJsonAsync("/site", site);
-            return await res.Content.ReadFromJsonAsync<SiteEnvelope>();
+            var res = await _http.PutAsJsonAsync("/site", site,options:Json.Options);
+            return await res.Content.ReadFromJsonAsync<SiteEnvelope>(options:Json.Options);
         }
         
         public async Task<SiteMetadataEnvelope> GetMetadata() =>
-            await _http.GetFromJsonAsync<SiteMetadataEnvelope>($"/site/metadata");
+            await _http.GetFromJsonAsync<SiteMetadataEnvelope>($"/site/metadata",options:Json.Options);
 
     }
 }

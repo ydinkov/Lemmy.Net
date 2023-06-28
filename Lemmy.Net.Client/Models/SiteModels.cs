@@ -200,16 +200,16 @@ public class Language
 
 public class SiteEnvelope
 {
-    [JsonPropertyName("discussion_languages")]
+    
     public IList<int> DiscussionLanguages { get; set; }
 
-    [JsonPropertyName("federated_instances")]
+    
     public FederatedInstances? FederatedInstances { get; set; }
 
     public MyUserInfo? MyUser { get; set; }
     public int Online { get; set; }
 
-    [JsonPropertyName("site_view")] public SiteRoot SiteView { get; set; }
+    public SiteRoot SiteView { get; set; }
     public IList<Tagline> Taglines { get; set; }
 
     public SiteRoot Site { get; set; }
@@ -233,16 +233,17 @@ public class UserBlock
 
 public class MyUserInfo
 {
-    [JsonPropertyName("community_blocks")] public IList<CommunityUser> CommunityBlocks { get; set; }
+    public IList<CommunityUser> CommunityBlocks { get; set; }
 
-    [JsonPropertyName("discussion_languages")]
+    
     public IList<int> DiscussionLanguages { get; set; }
 
     public IList<CommunityUser> Follows { get; set; }
-    [JsonPropertyName("local_user_view")] public IList<UserSettings> LocalUserView { get; set; }
+
+     public IList<UserSettings> LocalUserView { get; set; }
     public IList<CommunityUser> Moderates { get; set; }
 
-    [JsonPropertyName("person_blocks")] public IList<UserBlock> PersonBlocks { get; set; }
+    public IList<UserBlock> PersonBlocks { get; set; }
 }
 
 public class FederatedInstances

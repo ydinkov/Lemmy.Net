@@ -78,7 +78,5 @@ namespace YourNamespace.Controllers
 
 ## TODO
 - Better querying
-- RSS links
 - Test Coverage
 - Model reuse
-- Json snake-case naming policy

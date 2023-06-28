@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Lemmy.Net.Client.Models;
 
@@ -15,55 +16,55 @@ public class PrivateMessageComponent
 
     public async Task<PrivateMessageRoot> Create(string recipient, string content)
     {
-        var res = await _http.PostAsJsonAsync("/private_message", new{recipient= recipient, content = content});
-        return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>();
+        var res = await _http.PostAsJsonAsync("/private_message", new{recipient= recipient, content = content},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>(options:Json.Options);
     }
 
     public async Task<PrivateMessageReportEnvelope> Report(int privateMessageId, string reason)
     {
-        var res = await _http.PostAsJsonAsync("/private_message/report", new { private_message_id = privateMessageId, reason = reason});
-        return await res.Content.ReadFromJsonAsync<PrivateMessageReportEnvelope>();
+        var res = await _http.PostAsJsonAsync("/private_message/report", new { private_message_id = privateMessageId, reason = reason},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PrivateMessageReportEnvelope>(options:Json.Options);
     }
 
 
     public async Task<PrivateMessageRoot> Delete(int privateMessageId)
     {
-        var res = await _http.PostAsJsonAsync("/private_message/delete", new { private_message_id = privateMessageId, deleted = true});
-        return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>();
+        var res = await _http.PostAsJsonAsync("/private_message/delete", new { private_message_id = privateMessageId, deleted = true},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>(options:Json.Options);
     }
 
 
     public async Task<PrivateMessageRoot> Edit(int privateMessageId, string content)
     {
-        var res = await _http.PostAsJsonAsync("/private_message", new { private_message_id = privateMessageId, content = content});
-        return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>();
+        var res = await _http.PostAsJsonAsync("/private_message", new { private_message_id = privateMessageId, content = content},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>(options:Json.Options);
     }
 
     public async Task<PrivateMessagesEnvelope> List(int limit = 10, int page = 0, bool unreadOnly = false)
     {
-        var res = await _http.GetFromJsonAsync<PrivateMessagesEnvelope>($"/private_message/list?limit={limit}&page={0}&unread_only={unreadOnly}");
+        var res = await _http.GetFromJsonAsync<PrivateMessagesEnvelope>($"/private_message/list?limit={limit}&page={0}&unread_only={unreadOnly}",options:Json.Options);
         return res;
     }
 
     public async Task<PrivateMessageReportsEnvelope> ListReports(int limit = 10, int page = 0, bool unresolvedOnly = false)
     {
-        var res = await _http.GetFromJsonAsync<PrivateMessageReportsEnvelope>($"/private_message/report/list?limit={limit}&page={0}&unresolved_only={unresolvedOnly}");
+        var res = await _http.GetFromJsonAsync<PrivateMessageReportsEnvelope>($"/private_message/report/list?limit={limit}&page={0}&unresolved_only={unresolvedOnly}",options:Json.Options);
         return res;
     }
 
     public async Task<PrivateMessageEnvelope> MarkAsRead(int id)
     {
-        var res = await _http.PostAsJsonAsync($"/private_message/mark_as_read", new {private_message_id = id, read = true});
-        return await res.Content.ReadFromJsonAsync<PrivateMessageEnvelope>();
+        var res = await _http.PostAsJsonAsync($"/private_message/mark_as_read", new {private_message_id = id, read = true},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PrivateMessageEnvelope>(options:Json.Options);
     }
     public async Task<PrivateMessageReportEnvelope> ResolveReport(int reportId)
     {
-        var res = await _http.PutAsJsonAsync("/private_message/report/resolve", new { report_id = reportId, resolved= true });
-        return await res.Content.ReadFromJsonAsync<PrivateMessageReportEnvelope>();
+        var res = await _http.PutAsJsonAsync("/private_message/report/resolve", new { report_id = reportId, resolved= true },options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PrivateMessageReportEnvelope>(options:Json.Options);
     }
 
     public async Task<PrivateMessageReportEnvelope> Reports(PrivateMessageReportsRequest reports) =>
-        await _http.GetFromJsonAsync<PrivateMessageReportEnvelope>($"/private_message/report/list?{reports.GetQueryString()}");
+        await _http.GetFromJsonAsync<PrivateMessageReportEnvelope>($"/private_message/report/list?{reports.GetQueryString()}",options:Json.Options);
 
 
 

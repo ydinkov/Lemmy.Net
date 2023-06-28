@@ -8,25 +8,21 @@ public class PrivateMessageRoot
     public UserRoot Recipient { get; set; }
     public UserRoot Creator { get; set; }
 
-    [JsonPropertyName("private_message")]
     public PrivateMessage PrivateMessage { get; set; }
 }
 
 public class PrivateMessagesEnvelope
 {
-    [JsonPropertyName("private_messages")]
     public IList<PrivateMessageRoot> PrivateMessages { get; set; } 
 }
 
 public class PrivateMessageReportsEnvelope
 {
-    [JsonPropertyName("private_messages")]
     public IList<PrivateMessageReportRoot> PrivateMessages { get; set; }
 }
 
 public class PrivateMessageEnvelope
 {
-    [JsonPropertyName("private_message")]
     public PrivateMessageRoot PrivateMessage { get; set; }
 }
 
@@ -38,9 +34,9 @@ public class PrivateMessageEnvelope
 public class PrivateMessageReportRoot
 {
     public User Creator { get; set; }
-    [JsonPropertyName("private_message")] public PrivateMessage PrivateMessage { get; set; }
-    [JsonPropertyName("private_message_creator")] public User PrivateMessageCreator { get; set; }
-    [JsonPropertyName("private_message_report")] public PrivateMessageReport PrivateMessageReport { get; set; }
+    public PrivateMessage PrivateMessage { get; set; }
+    public User PrivateMessageCreator { get; set; }
+    public PrivateMessageReport PrivateMessageReport { get; set; }
     public User Resolver { get; set; }
 }
 
@@ -59,15 +55,15 @@ public class PrivateMessageReport
 
 public class PrivateMessage
 {
-    [JsonPropertyName("ap_id")] public string ApId { get; private set; } = string.Empty;
+     public string ApId { get; private set; } = string.Empty;
      public string Content { get; private set; } = string.Empty;
-    [JsonPropertyName("creator_id")] public int CreatorId { get; private set; }
+    public int CreatorId { get; private set; }
      public bool Deleted { get; private set; }
      public int Id { get; private set; }
      public bool Local { get; private set; }
     public string Published { get; private set; } = string.Empty;
     public bool Read { get; private set; }
-    [JsonPropertyName("recipient_id")] public int RecipientId { get; private set; }
+    public int RecipientId { get; private set; }
     public string? Updated { get; private set; }
 }
 

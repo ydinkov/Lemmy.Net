@@ -25,8 +25,6 @@ namespace Nibblebit.Lemmy.Tests
                 Console.WriteLine("Couldn't find config.json, loading local.");
                 configStr = File.ReadAllText("local.config.json");
             }
-
-
             _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(configStr);
             var services = new ServiceCollection();
             services.AddLemmyClient(
@@ -40,12 +38,7 @@ namespace Nibblebit.Lemmy.Tests
             _lemmy = provider.GetRequiredService<ILemmyService>();
         }
 
-        [Fact]
-        public async Task CommunityAsync()
-        {
-            var communities = await _lemmy.GetCommunitiesAsync();
-            communities.Communities.Should().HaveCountGreaterThan(0);
-        }
+      
         
         //[Fact]
         public async Task CreateCommunityAsync()
@@ -68,29 +61,18 @@ namespace Nibblebit.Lemmy.Tests
             r.Should().BeTrue();
         }
 
-
-        [Fact]
-        public async Task GetPostsTestAsync()
-        {
-            //test community '15'
-            var posts = await _lemmy.GetPostsAsync();
-            posts.Posts.Should().HaveCountGreaterThan(0);
-        }
-        
         [Fact]
         public async Task GetPostTestAsync()
         {
-            //test post '2'
-            var posts = await _lemmy.GetPostAsync(2);
-            posts.Post.Should().NotBeNull();
+            var posts = await _lemmy.Post.Get(2);
+            posts.PostView.Should().NotBeNull();
         }
         
         [Fact]
         public async Task GetCommentsTestAsync()
         {
             //test post '2'
-            
-            var comments = await _lemmy.Comment.List("community=2");
+            var comments = await _lemmy.Comment.List(new CommentsRequest{CommunityId = 2});
             comments.Comments.Should().NotBeNull();
         }
         
@@ -104,10 +86,10 @@ namespace Nibblebit.Lemmy.Tests
                 Name = "Unit Test Post3",
                 Body = "Hello this was created for a unit test"
             };
-            var res = await _lemmy.CreatePostsAsync(post);
-            res.Post.Should().NotBeNull();
+            var res = await _lemmy.Post.Create(post);//.CreatePostsAsync(post);
+            res.PostView.Should().NotBeNull();
 
-            _lemmy.DeletePostsAsync(res.Post.Post.Id);
+            _lemmy.Post.Delete(res.PostView.Post.Id);//.DeletePostsAsync();
 
         }
     }

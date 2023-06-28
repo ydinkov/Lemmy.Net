@@ -1,9 +1,8 @@
 ﻿using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
+using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Web;
-using Lemmy.Net.Client.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
@@ -63,7 +62,9 @@ namespace Lemmy.Net.Client.Models
             foreach (var property in properties)
             {
                 var value = property.GetValue(obj);
-                query[property.Name] = value != null ? value.ToString() : string.Empty;
+                if(value == null) continue;
+                var nameOverride = property?.GetCustomAttribute<JsonPropertyNameAttribute>()?.Name ?? property.Name;
+                query[Json.ConvertSnakeCase(nameOverride,"_")] = value != null ? value.ToString() : string.Empty;
             }
 
             return query.ToString();

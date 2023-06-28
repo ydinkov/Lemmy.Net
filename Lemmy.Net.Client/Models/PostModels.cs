@@ -85,9 +85,9 @@ namespace Lemmy.Net.Client.Models
     public class PostEnvelope
     {
         
-        [JsonPropertyName("post_view")]public PostRoot Post { get; set; }
-        [JsonPropertyName("moderators")]public IList<UserRoot>? Moderators { get; set; }
-        [JsonPropertyName("online")]public int? Online { get; set; }
+        public PostRoot PostView { get; set; }
+        public IList<UserRoot>? Moderators { get; set; }
+        public int? Online { get; set; }
     }
 
 
@@ -98,13 +98,15 @@ namespace Lemmy.Net.Client.Models
     
     public class CreatePost
     {
-        [JsonPropertyName("name")]public string Name { get; set; }
-        [JsonPropertyName("community_id")]public int CommunityId { get; set; }
-        [JsonPropertyName("url")]public string? Url { get; set; }
-        [JsonPropertyName("body")]public string? Body { get; set; }
-        [JsonPropertyName("honeypot")]public string? Honeypot { get; set; }
-        [JsonPropertyName("nsfw")]public bool Nsfw { get; set; }
-        [JsonPropertyName("language_id")]public int? LanguageId { get; set; }
+        public string Name { get; set; }
+
+        public int CommunityId { get; set; }
+ 
+        public string? Url { get; set; }
+        public string? Body { get; set; }
+        public string? Honeypot { get; set; }
+        public bool Nsfw { get; set; }
+        public int? LanguageId { get; set; }
     }
    
     public class EditPost

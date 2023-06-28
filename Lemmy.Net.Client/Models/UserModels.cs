@@ -79,7 +79,7 @@ public class UserDetails
 {
     public IList<CommentRoot> Comments { get; set; }
     public IList<CommunityModRoot> Moderates { get; set; }
-    [JsonPropertyName("person_view")] public User PersonView { get; set; }
+    public User PersonView { get; set; }
     public IList<PostRoot> Posts { get; set; }
 }
 
@@ -95,51 +95,52 @@ public class GetUserDetails
 
 public class UserSettings
 {
-    [JsonPropertyName("accepted_application")]
+    
     public bool AcceptedApplication { get; set; }
 
-    [JsonPropertyName("default_listing_type")]
+    
     public int DefaultListingType { get; set; }
 
-    [JsonPropertyName("default_sort_type")]
+    
     public int DefaultSortType { get; set; }
 
     public string? Email { get; set; }
-    [JsonPropertyName("email_verified")] public bool EmailVerified { get; set; }
+    public bool EmailVerified { get; set; }
     public int Id { get; set; }
 
-    [JsonPropertyName("interface_language")]
+    
     public string InterfaceLanguage { get; set; }
 
-    [JsonPropertyName("person_id")] public int PersonId { get; set; }
+    
+    public int PersonId { get; set; }
 
-    [JsonPropertyName("send_notifications_to_email")]
+    
     public bool SendNotificationsToEmail { get; set; }
 
-    [JsonPropertyName("show_avatars")] public bool ShowAvatars { get; set; }
+    public bool ShowAvatars { get; set; }
 
-    [JsonPropertyName("show_bot_accounts")]
+    
     public bool ShowBotAccounts { get; set; }
 
-    [JsonPropertyName("show_new_post_notifs")]
+    
     public bool ShowNewPostNotifs { get; set; }
 
-    [JsonPropertyName("show_nsfw")] public bool ShowNsfw { get; set; }
-    [JsonPropertyName("show_read_posts")] public bool ShowReadPosts { get; set; }
-    [JsonPropertyName("show_scores")] public bool ShowScores { get; set; }
+    public bool ShowNsfw { get; set; }
+    public bool ShowReadPosts { get; set; }
+    public bool ShowScores { get; set; }
     public string Theme { get; set; }
-    [JsonPropertyName("validator_time")] public string ValidatorTime { get; set; }
+    public string ValidatorTime { get; set; }
 }
 
 public class BanResponse
 {
-    [JsonPropertyName("person_view")] public PersonRoot PersonView { get; set; }
+    public PersonRoot PersonView { get; set; }
 }
 
 public class BlockUser
 {
     public bool Blocked { get; set; }
-    [JsonPropertyName("person_view")] public PersonRoot PersonView { get; set; }
+    public PersonRoot PersonView { get; set; }
 }
 
 public class GetUserMentions
@@ -168,13 +169,13 @@ public class UserMentionRoot
     public CommentCounts Counts { get; set; } = null!;
     public User Creator { get; set; } = null!;
 
-    [JsonPropertyName("creator_banned_from_community")]
+    
     public bool CreatorBannedFromCommunity { get; set; }
 
-    [JsonPropertyName("creator_blocked")] public bool CreatorBlocked { get; set; }
-    [JsonPropertyName("my_vode")] public int? MyVote { get; set; }
+    public bool CreatorBlocked { get; set; }
+    public int? MyVote { get; set; }
 
-    [JsonPropertyName("person_mention")] public UserMention PersonMention { get; set; } = null!;
+    public UserMention PersonMention { get; set; } = null!;
     public Post Post { get; set; } = null!;
     public User Recipient { get; set; } = null!;
     public bool Saved { get; set; }
@@ -183,11 +184,11 @@ public class UserMentionRoot
 
 public class UserMention
 {
-    [JsonPropertyName("comment_id")] public int CommentId { get; set; }
+    public int CommentId { get; set; }
     public int Id { get; set; }
     public DateTime Published { get; set; }
     public bool Read { get; set; }
-    [JsonPropertyName("recipient_id")] public int RecipientId { get; set; }
+    public int RecipientId { get; set; }
 }
 
 public class GetReplies

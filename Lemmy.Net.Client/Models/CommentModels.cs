@@ -29,18 +29,18 @@ public class Comment
 {
     public int Id { get; set; }
 
-    [JsonPropertyName("ap_id")] public string ApId { get; set; }
+    public string ApId { get; set; }
 
     public string Content { get; set; }
 
-    [JsonPropertyName("creator_id")] public int CreatorId { get; set; }
+    public int CreatorId { get; set; }
     public bool Deleted { get; set; }
     public bool Distinguished { get; set; }
     public int LanguageId { get; set; }
     public bool Local { get; set; }
     public string Path { get; set; }
 
-    [JsonPropertyName("post_id")] public int PostId { get; set; }
+    public int PostId { get; set; }
 
     public DateTime Published { get; set; }
     public bool Removed { get; set; }
@@ -48,17 +48,14 @@ public class Comment
 }
 
 public class CommentCounts
-{
-    [JsonPropertyName("child_count")] public int ChildCount { get; set; }
-
-    [JsonPropertyName("comment_id")] public int CommentId { get; set; }
+{public int ChildCount { get; set; }
+public int CommentId { get; set; }
 
     public int Downvotes { get; set; }
     public int Id { get; set; }
     public int Score { get; set; }
     public int Upvotes { get; set; }
-
-    [JsonPropertyName("hot_rank")] public int HotRank { get; set; }
+public int HotRank { get; set; }
 }
 
 public class CommentRoot
@@ -68,10 +65,9 @@ public class CommentRoot
     public CommentCounts Counts { get; set; }
     public User Creator { get; set; }
 
-    [JsonPropertyName("creator_banned_from_community")]
     public bool CreatorBannedFromCommunity { get; set; }
 
-    [JsonPropertyName("creator_blocked")] public bool CreatorBlocked { get; set; }
+    public bool CreatorBlocked { get; set; }
 
     public int MyVote { get; set; }
     public Post Post { get; set; }
@@ -159,4 +155,26 @@ public class CommentReportsRequest
     public int? Limit { get; set; }
     public int? Page { get; set; }
     public bool? UnresolvedOnly { get; set; }
+}
+
+public class CommentsRequest
+{
+    
+    
+    public int? CommunityId { get; set; }
+    
+    public string? CommunityName { get; set; }
+    public int? Limit { get; set; }
+    
+    public int? MaxDepth { get; set; }
+    public int? Page { get; set; }
+    
+    public int? ParentId { get; set; }
+    public int? PostId { get; set; }
+    public int? SavedOnly { get; set; }
+    public string? Sort { get; set; }
+
+    
+    public string Type { get; set; }
+
 }
