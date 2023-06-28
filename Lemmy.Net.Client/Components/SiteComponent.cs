@@ -4,8 +4,6 @@ using System.Text.Json;
 
 namespace Lemmy.Net.Client.Components
 {
-    
-    
     public class SiteComponent
     {
         private readonly HttpClient _http;
@@ -20,8 +18,6 @@ namespace Lemmy.Net.Client.Components
             var res = await _http.PostAsJsonAsync("/site", site,options:Json.Options);
             return await res.Content.ReadFromJsonAsync<SiteEnvelope>(options:Json.Options);
         }
-
-
         public async Task<SiteEnvelope> GetSite() =>
             await _http.GetFromJsonAsync<SiteEnvelope>("/site",options:Json.Options);
 

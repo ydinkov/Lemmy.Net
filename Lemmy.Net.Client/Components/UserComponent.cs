@@ -13,8 +13,6 @@ public class UserComponent
     {
         this._http = _http;
     }
-
- 
     
     public async Task<BannedUsersEnvelope> GetBanned() =>
         await _http.GetFromJsonAsync<BannedUsersEnvelope>("/user/banned",options:Json.Options);

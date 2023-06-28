@@ -1,9 +1,11 @@
-﻿namespace System.Text.Json
+﻿using System.Text.Json.Serialization;
+
+namespace System.Text.Json
 {
     public static class Json
     {
         internal static JsonSerializerOptions Options { get; }= new()
-            { PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy() };
+            { PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy()};
 
         public static string ConvertSnakeCase(string name, string separator)
         {

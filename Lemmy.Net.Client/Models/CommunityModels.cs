@@ -6,7 +6,7 @@ public class Community
     public int Id { get; set; }
     public string Name { get; set; }
     public string Title { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public bool Removed { get; set; }
     public DateTime Published { get; set; }
     public DateTime? Updated { get; set; }
@@ -14,11 +14,11 @@ public class Community
     public bool Nsfw { get; set; }
     public string ActorId { get; set; }
     public bool Local { get; set; }
-    public object Icon { get; set; }
-    public object Banner { get; set; }
+    public object? Icon { get; set; }
+    public object? Banner { get; set; }
     public bool Hidden { get; set; }
 
-    
+
     public bool PostingRestrictedToMods { get; set; }
 
     public int InstanceId { get; set; }
@@ -46,12 +46,6 @@ public class CommunityRoot
     public Counts Counts { get; set; }
 }
 
-public class FollowCommunity
-{
-    public int CommunityId { get; set; }
-    public bool Follow { get; set; }
-}
-
 
 public class CommunitiesEnvelope
 {
@@ -60,7 +54,6 @@ public class CommunitiesEnvelope
 
 public class CommunityEnvelope
 {
-  
     public CommunityRoot CommunityView { get; set; }
 }
 
@@ -98,15 +91,14 @@ public class BanUser
     public bool? RemoveData { get; set; }
 }
 
-public class BanResponse
-{
-    public bool Banned { get; set; }
-    public UserRoot PersonView { get; set; }
-}
 
-
-public class CommunityBlock
+public class CommunitiesRequest
 {
-    public bool Blocked { get; set; }
-    public UserRoot CommunityView { get; set; }
+    public int? Limit { get; set; }
+    public int? Page { get; set; }
+
+    public string? Sort { get; set; }
+
+    [JsonPropertyName("type_")] //All,Community,Local,Subscribed
+    public string? Type { get; set; }
 }

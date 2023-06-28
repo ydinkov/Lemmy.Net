@@ -21,7 +21,7 @@ namespace Lemmy.Net.Client.Models
 
 
         public async Task<PostEnvelope> DeletePostsAsync(int postId) =>
-            await Post.Delete(postId);
+            await Post.Remove(postId);
 
         public async Task<PostEnvelope> CreatePostsAsync(CreatePost post) =>
             await Post.Create(post);
@@ -33,7 +33,7 @@ namespace Lemmy.Net.Client.Models
             await Post.List();
 
         public async Task<CommunitiesEnvelope> GetCommunitiesAsync() =>
-            await Community.List(string.Empty);
+            await Community.List(new CommunitiesRequest());
     }
 
     public interface ILemmyService

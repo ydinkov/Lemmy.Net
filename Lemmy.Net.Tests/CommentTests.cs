@@ -23,6 +23,15 @@ public class CommentTests : AbstractTest
         comments.Comments.Should().NotBeEmpty();
         comments.Comments.Should().AllSatisfy(x => x.Community.Id.Should().Be(2));
     }
+    [Fact]
+    public async Task QueryComments2()
+    {
+        var comments = await _lemmy.Comment.List(new CommentsRequest{CommunityId = 2,Limit = 20});
+        comments.Comments.Should().NotBeEmpty();
+        comments.Comments.Should().HaveCount(20);
+        comments.Comments.Should().AllSatisfy(x => x.Community.Id.Should().Be(2));
+    }
+    
 
 
 }

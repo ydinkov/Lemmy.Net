@@ -87,9 +87,15 @@ public class PostComponent
         return await res.Content.ReadFromJsonAsync<PostEnvelope>(options:Json.Options);
     }
     
-    public async Task<PostEnvelope> Delete(int postId)
+    //public async Task<PostEnvelope> Delete(int postId)
+    //{
+    //    var res = await _http.PostAsJsonAsync("/post/delete", new{post_id = postId, deleted =true},options:Json.Options);
+    //    return await res.Content.ReadFromJsonAsync<PostEnvelope>(options:Json.Options);
+    //}
+    
+    public async Task<PostEnvelope> Remove(int postId)
     {
-        var res = await _http.PostAsJsonAsync("/post", new{post_id = postId, deleted =true},options:Json.Options);
+        var res = await _http.PostAsJsonAsync("/post/remove", new{post_id = postId, removed =true},options:Json.Options);
         return await res.Content.ReadFromJsonAsync<PostEnvelope>(options:Json.Options);
     }
     

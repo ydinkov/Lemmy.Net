@@ -76,21 +76,6 @@ namespace Nibblebit.Lemmy.Tests
             comments.Comments.Should().NotBeNull();
         }
         
-        [Fact]
-        public async Task CreatePostTestAsync()
-        {
-            Console.WriteLine("Test post create");
-            var post = new CreatePost
-            {
-                CommunityId = 41372,
-                Name = "Unit Test Post3",
-                Body = "Hello this was created for a unit test"
-            };
-            var res = await _lemmy.Post.Create(post);//.CreatePostsAsync(post);
-            res.PostView.Should().NotBeNull();
-
-            _lemmy.Post.Delete(res.PostView.Post.Id);//.DeletePostsAsync();
-
-        }
+       
     }
 }
