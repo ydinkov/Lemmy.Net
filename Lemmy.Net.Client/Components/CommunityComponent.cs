@@ -90,4 +90,8 @@ public class CommunityComponent
         var res = await _http.PostAsJsonAsync("/community/transfer", new{user_id=userId, community_id = communityId},options:Json.Options);
         return await res.Content.ReadFromJsonAsync<CommunityEnvelope>(options:Json.Options);
     }
+    
+    public async Task<CommunityEnvelope?> Get(int? id = null, string? name = null) =>
+        await _http.GetFromJsonAsync<CommunityEnvelope>($"/community?{new{id=id, name = name}.GetQueryString()}",options:Json.Options);
+    
 }

@@ -57,6 +57,13 @@ public class CommunityEnvelope
     public CommunityRoot CommunityView { get; set; }
 }
 
+class GetCommunityRequest
+{
+    public int? Id { get; set; }
+    public string? Name { get; set; }
+    
+}
+
 public class CreateCommunity
 {
     public string? Banner { get; set; }

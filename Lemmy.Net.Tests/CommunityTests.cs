@@ -15,6 +15,13 @@ public class CommunityTests : AbstractTest
     }
     
     [Fact]
+    public async Task GetCommunity()
+    {
+        var community = await _lemmy.Community.Get(name:"test_new_comm");
+        community.CommunityView.Community.Title.Should().Be("Test New Community");
+    }
+    
+    [Fact]
     public async Task FollowCommunities()
     {
         var communities = await _lemmy.Community.List(new CommunitiesRequest{Type = "Local"});
