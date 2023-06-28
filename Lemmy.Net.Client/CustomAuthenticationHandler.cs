@@ -84,12 +84,11 @@ namespace Lemmy.Net.Client {
                 request.Content = JsonContent.Create(proxy);
             }
             
-            return await base.SendAsync(request, cancellationToken);
+          var res = await base.SendAsync(request, cancellationToken);
 
-           //return res.IsSuccessStatusCode
-           //    ? res
-           //    : throw new HttpRequestException((await res.Content.ReadAsStringAsync(cancellationToken)), null,
-           //        res.StatusCode);
+           return res.IsSuccessStatusCode ? res
+               : throw new HttpRequestException((await res.Content.ReadAsStringAsync(cancellationToken)), null,
+                   res.StatusCode);
  
             
     
