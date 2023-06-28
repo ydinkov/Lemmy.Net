@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <VersionPrefix>0.6.6</VersionPrefix>
+    <VersionPrefix>0.6.7</VersionPrefix>
     <Nullable>enable</Nullable>
 
     <PackageId>Lemmy.Net.Client</PackageId>
@@ -16,6 +15,8 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 
     <Authors>Yasen Dinkov</Authors>
+
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     
   </PropertyGroup>
 

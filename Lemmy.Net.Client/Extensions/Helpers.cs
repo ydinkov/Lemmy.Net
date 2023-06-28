@@ -39,7 +39,7 @@ namespace Lemmy.Net.Client.Models
             lemmyInstance = lemmyInstance.Split("/").First();
             
             var uri = new Uri($"https://{lemmyInstance}/api/{apiVersion}/");
-            services.AddLogging();
+            
             services.AddHttpClient<ILemmyService, LemmyService>(client => { client.BaseAddress = uri; })
                 .ConfigurePrimaryHttpMessageHandler(() =>
                     new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken))
