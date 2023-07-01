@@ -25,7 +25,6 @@ public class AbstractTest
             configStr = File.ReadAllText("local.config.json");
         }
 
-
         _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(configStr);
         var services = new ServiceCollection();
         services.AddLemmyClient(

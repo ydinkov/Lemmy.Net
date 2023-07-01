@@ -4,8 +4,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Web;
 using Microsoft.Extensions.DependencyInjection;
-using Polly;
-using Polly.Extensions.Http;
 
 
 namespace Lemmy.Net.Client.Models
@@ -39,19 +37,12 @@ namespace Lemmy.Net.Client.Models
             lemmyInstance = lemmyInstance.Split("/").First();
             
             var uri = new Uri($"https://{lemmyInstance}/api/{apiVersion}/");
-            
+
             services.AddHttpClient<ILemmyService, LemmyService>(client => { client.BaseAddress = uri; })
                 .ConfigurePrimaryHttpMessageHandler(() =>
-                    new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken))
-                
-                .AddPolicyHandler((serviceProvider, request) =>
-                {
-                    return HttpPolicyExtensions
-                        .HandleTransientHttpError()
-                        .OrResult(x =>
-                            x.StatusCode == HttpStatusCode.BadRequest && x.Content.Headers.ContentLength == 28)
-                        .WaitAndRetryAsync(4, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
-                });
+                    new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken));
+
+
         }
 
         public static string GetQueryString(this object obj)
