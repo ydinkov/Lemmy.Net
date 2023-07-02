@@ -134,7 +134,7 @@ public class UserComponent
     public async Task<ReportCount?> GetReportCount(int? communityId = null)
     {
         var query = communityId is null? string.Empty :  $"?{new { community_id = communityId }}";
-        return await _http.GetFromJsonAsync<ReportCount>($"/user/report_count{query}");
+        return await _http.GetFromJsonAsync<ReportCount>($"/user/report_count{query}",options:Json.Options);
     }
 
 }

@@ -164,20 +164,16 @@ public class UserMentionsEnvelope
 
 public class UserMentionRoot
 {
-    public Comment Comment { get; set; } = null!;
-    public Community Community { get; set; } = null!;
-    public CommentCounts Counts { get; set; } = null!;
-    public User Creator { get; set; } = null!;
-
-    
+    public Comment Comment { get; set; }
+    public Community Community { get; set; }
+    public CommentCounts Counts { get; set; }
+    public User Creator { get; set; }
     public bool CreatorBannedFromCommunity { get; set; }
-
     public bool CreatorBlocked { get; set; }
     public int? MyVote { get; set; }
-
-    public UserMention PersonMention { get; set; } = null!;
-    public Post Post { get; set; } = null!;
-    public User Recipient { get; set; } = null!;
+    public UserMention PersonMention { get; set; }
+    public Post Post { get; set; }
+    public User Recipient { get; set; }
     public bool Saved { get; set; }
     public string Subscribed { get; set; }
 }
@@ -203,11 +199,8 @@ public class GetReplies
 public class ReportCount
 {
     public int CommentReports { get; set; }
-    
     public int? CommunityId { get; set; }
-    
     public int PostReports { get; set; }
-    
     public int? PrivateMessageReports { get; set; }
 }
 public class UnreadCount
