@@ -86,7 +86,8 @@ namespace Lemmy.Net.Client {
 
             if (request.Method == HttpMethod.Get)
             {
-                request.RequestUri = new Uri(request.RequestUri + $"&auth={jwtToken}");
+                var old = request.RequestUri.ToString();
+                request.RequestUri = new Uri( old+ $"{(old.Contains('?') ?"&":"?")}auth={jwtToken}");
             }
             
           var res = await base.SendAsync(request, cancellationToken);
