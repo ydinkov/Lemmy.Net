@@ -58,12 +58,11 @@ namespace Lemmy.Net.Client.Models
                 if(originalValue == null) continue;
                 var nameOverride = property?.GetCustomAttribute<JsonPropertyNameAttribute>()?.Name ?? property.Name;
 
-              
 
-                var isGeneric = property?.PropertyType.IsGenericType ?? false; 
-                var isNullable = property?.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
 
-                var type = isGeneric && isNullable
+                var isNullable = (property?.PropertyType.IsGenericType ?? false) && property?.PropertyType.GetGenericTypeDefinition() == typeof(System.Nullable<>);
+
+                var type = isNullable
                     ? Nullable.GetUnderlyingType(property?.PropertyType)
                     : property?.PropertyType;
                 

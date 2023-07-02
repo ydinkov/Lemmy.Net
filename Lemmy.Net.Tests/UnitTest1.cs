@@ -75,7 +75,5 @@ namespace Nibblebit.Lemmy.Tests
             var comments = await _lemmy.Comment.List(new CommentsRequest{CommunityId = 2});
             comments.Comments.Should().NotBeNull();
         }
-        
-       
     }
 }
