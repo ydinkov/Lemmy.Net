@@ -77,10 +77,7 @@ public class UserComponent
         await _http.GetFromJsonAsync<RepliesEnvelope>($"/user/reply?{replies.GetQueryString()}",options:Json.Options);
         
 
-    public async Task<ReportCount> GetReportCount(int communityId) =>
-        await _http.GetFromJsonAsync<ReportCount>($"/user/report_count?community_id={communityId}",options:Json.Options);
-    
-    
+
     public async Task<UnreadCount> GetUnread() =>
         await _http.GetFromJsonAsync<UnreadCount>($"/user/unread_count",options:Json.Options);
 
@@ -133,11 +130,11 @@ public class UserComponent
         var res = await _http.PostAsJsonAsync("/user/verify_email",new{token = token},options:Json.Options);
         return res.IsSuccessStatusCode;
     }
-    
-    public async Task<SearchEnvelope> GetReportCount(SearchRequest search) =>
-        await _http.GetFromJsonAsync<SearchEnvelope>($"/user/report_count?{search.GetQueryString()}",options:Json.Options);
-    
 
-    
+    public async Task<ReportCount?> GetReportCount(int? communityId = null)
+    {
+        var query = communityId is null? string.Empty :  $"?{new { community_id = communityId }}";
+        return await _http.GetFromJsonAsync<ReportCount>($"/user/report_count{query}");
+    }
 
 }

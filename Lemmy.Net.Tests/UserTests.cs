@@ -13,4 +13,11 @@ public class UserTests : AbstractTest
         //var bannedUsers = await _lemmy.User.GetBanned();
         //bannedUsers.Banned.Should().NotBeNull();
     }
+    
+    [Fact]
+    public async Task GetReportCount()
+    {
+        var posts = await _lemmy.User.GetReportCount();
+        posts.Should().NotBeNull();
+    }
 }

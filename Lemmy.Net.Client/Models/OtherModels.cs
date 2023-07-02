@@ -53,6 +53,14 @@ public class SearchRequest
     [JsonPropertyName("type_")] public string? Type { get; set; }
 }
 
+public class ReportCountRequest
+{
+    public int? CommunityId { get; set; }
+    public int? Limit { get; set; }
+    public int? Page { get; set; }
+    public bool? UnresolvedOnly { get; set; }
+}
+
 public class SearchEnvelope
 {
     public IList<CommentRoot> Comments { get; set; }

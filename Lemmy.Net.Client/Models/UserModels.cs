@@ -202,10 +202,13 @@ public class GetReplies
 
 public class ReportCount
 {
-    public int CommentReports { get; private set; }
-    public int? CommunityId { get; private set; }
-    public int PostReports { get; private set; }
-    public int? PrivateMessageReports { get; private set; }
+    public int CommentReports { get; set; }
+    
+    public int? CommunityId { get; set; }
+    
+    public int PostReports { get; set; }
+    
+    public int? PrivateMessageReports { get; set; }
 }
 public class UnreadCount
 {

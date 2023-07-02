@@ -22,7 +22,7 @@ public class AbstractTest
         catch
         {
             Console.WriteLine("Couldn't find config.json, loading local.");
-            configStr = File.ReadAllText("local.config.json");
+            configStr = File.ReadAllText("prod.config.json");
         }
 
         _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(configStr);
