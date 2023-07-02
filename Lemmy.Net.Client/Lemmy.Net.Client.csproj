@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
-    <VersionPrefix>0.6.9</VersionPrefix>
+    <VersionPrefix>0.6.10</VersionPrefix>
     <Nullable>enable</Nullable>
 
     <PackageId>Lemmy.Net.Client</PackageId>

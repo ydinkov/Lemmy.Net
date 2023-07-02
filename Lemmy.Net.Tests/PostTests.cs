@@ -14,6 +14,13 @@ public class PostTests : AbstractTest
         posts.Posts.Should().NotBeEmpty();
     }
     
+    [Fact]
+    public async Task GetPostReportsTest()
+    {
+        var posts = await _lemmy.Post.Reports();
+        posts.PostReports.Should().NotBeNull();
+    }
+    
 
     [Fact]
     public async Task Like()
@@ -29,6 +36,8 @@ public class PostTests : AbstractTest
         var r = await _lemmy.Post.Reset(post.Post.Id);
         r.Should().BeTrue();
     }
+    
+    
 
     //[Fact]
     public async Task CreatePostTestAsync()

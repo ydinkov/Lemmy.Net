@@ -71,10 +71,10 @@ namespace Lemmy.Net.Client {
                 }
             }
 
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
 
             //I really don't understand why the api want's the following, but okay.
-            if (request.Method == HttpMethod.Post)
+            if (request.Method == HttpMethod.Post || request.Method ==  HttpMethod.Put)
             {
                 //interscept the request object
                 var str = await request.Content.ReadAsStringAsync(cancellationToken);
@@ -82,6 +82,11 @@ namespace Lemmy.Net.Client {
                 //Add the token to an auth property
                 proxy["auth"] = jwtToken;
                 request.Content = JsonContent.Create(proxy);
+            }
+
+            if (request.Method == HttpMethod.Get)
+            {
+                request.RequestUri = new Uri(request.RequestUri + $"&auth={jwtToken}");
             }
             
           var res = await base.SendAsync(request, cancellationToken);

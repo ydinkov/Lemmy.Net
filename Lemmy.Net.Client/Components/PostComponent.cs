@@ -116,8 +116,8 @@ public class PostComponent
         await _http.GetFromJsonAsync<SiteMetadataEnvelope>($"/post/site_metadata?url={HttpUtility.UrlEncode(url.ToString())}",options:Json.Options);
 
     
-    public async Task<PostReportsEnvelope> Reports(PostReportsRequest reports) =>
-        await _http.GetFromJsonAsync<PostReportsEnvelope>($"/post/report/list?{reports.GetQueryString()}",options:Json.Options);
+    public async Task<PostReportsEnvelope> Reports(PostReportsRequest? reports = null) =>
+        await _http.GetFromJsonAsync<PostReportsEnvelope>($"/post/report/list?{reports?.GetQueryString()??String.Empty}",options:Json.Options);
     
     public async Task<PostEnvelope> MarkAsRead(int postId)
     {
