@@ -13,12 +13,13 @@ public class PostTests : AbstractTest
         var posts = await _lemmy.Post.List();
         posts.Posts.Should().NotBeEmpty();
     }
-    
+
     [Fact]
     public async Task GetPostReportsTest()
     {
-        var posts = await _lemmy.Post.Reports();
-        posts.PostReports.Should().NotBeNull();
+        var posts = await _lemmy.Post.Reports(new PostReportsRequest{UnresolvedOnly = true});
+
+    posts.PostReports.Should().NotBeNull();
     }
     
 

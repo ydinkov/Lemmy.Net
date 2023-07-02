@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Web;
@@ -52,10 +54,43 @@ namespace Lemmy.Net.Client.Models
 
             foreach (var property in properties)
             {
-                var value = property.GetValue(obj);
-                if(value == null) continue;
+                var originalValue = property.GetValue(obj);
+                if(originalValue == null) continue;
                 var nameOverride = property?.GetCustomAttribute<JsonPropertyNameAttribute>()?.Name ?? property.Name;
-                query[Json.ConvertSnakeCase(nameOverride,"_")] = value != null ? value.ToString() : string.Empty;
+
+              
+
+                var isGeneric = property?.PropertyType.IsGenericType ?? false; 
+                var isNullable = property?.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+
+                var type = isGeneric && isNullable
+                    ? Nullable.GetUnderlyingType(property?.PropertyType)
+                    : property?.PropertyType;
+                
+                var typeCode = Type.GetTypeCode(type); 
+                
+                
+                
+                var value = typeCode  switch
+                {
+                    TypeCode.Empty => string.Empty,
+                    TypeCode.Boolean => originalValue.ToString()?.ToLower(),
+                    TypeCode.Char =>  originalValue.ToString(),
+                    TypeCode.Int16 =>  originalValue.ToString(),
+                    TypeCode.UInt16 =>  originalValue.ToString(),
+                    TypeCode.Int32 =>  originalValue.ToString(),
+                    TypeCode.UInt32 =>  originalValue.ToString(),
+                    TypeCode.Int64 =>  originalValue.ToString(),
+                    TypeCode.UInt64 =>  originalValue.ToString(),
+                    TypeCode.Single =>  originalValue.ToString(),
+                    TypeCode.Double =>  originalValue.ToString(),
+                    TypeCode.Decimal =>  originalValue.ToString(),
+                    TypeCode.String => originalValue.ToString(),
+                    TypeCode.DateTime => ((DateTime)originalValue).ToString("h:mm:ss tt zz"),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+                query[Json.ConvertSnakeCase(nameOverride, "_")] = value;
             }
 
             return query.ToString();
