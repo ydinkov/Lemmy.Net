@@ -1,3 +1,4 @@
+[![Nuget](https://img.shields.io/nuget/v/Lemmy.Net.Client)](https://www.nuget.org/packages/Lemmy.Net.Client)
 <img src="logo.png" width="200"/>
 
 # A (WIP) DI http client for Lemmy in dotnet
