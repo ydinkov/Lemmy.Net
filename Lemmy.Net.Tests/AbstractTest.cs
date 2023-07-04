@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json;
 using Lemmy.Net.Client.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +24,7 @@ public class AbstractTest
         catch
         {
             Console.WriteLine("Couldn't find config.json, loading local.");
-            configStr = File.ReadAllText("prod.config.json");
+            configStr = File.ReadAllText("local.config.json");
         }
 
         _testConfig = JsonSerializer.Deserialize<Dictionary<string, string>>(configStr);
