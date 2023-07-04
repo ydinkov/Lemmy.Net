@@ -14,10 +14,10 @@ public class PrivateMessageComponent
         this._http = _http;
     }
 
-    public async Task<PrivateMessageRoot> Create(string recipient, string content)
+    public async Task<PrivateMessageEnvelope> Create(int recipientId, string content)
     {
-        var res = await _http.PostAsJsonAsync("/private_message", new{recipient= recipient, content = content},options:Json.Options);
-        return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>(options:Json.Options);
+        var res = await _http.PostAsJsonAsync("/private_message", new{recipient_id= recipientId, content = content},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PrivateMessageEnvelope>(options:Json.Options);
     }
 
     public async Task<PrivateMessageReportEnvelope> Report(int privateMessageId, string reason)
@@ -40,9 +40,10 @@ public class PrivateMessageComponent
         return await res.Content.ReadFromJsonAsync<PrivateMessageRoot>(options:Json.Options);
     }
 
-    public async Task<PrivateMessagesEnvelope> List(int limit = 10, int page = 0, bool unreadOnly = false)
+    public async Task<PrivateMessagesEnvelope> List(PrivateMessagesRequest? req = null)
     {
-        var res = await _http.GetFromJsonAsync<PrivateMessagesEnvelope>($"/private_message/list?limit={limit}&page={0}&unread_only={unreadOnly}",options:Json.Options);
+        var query = req == null? string.Empty :  $"?{req.GetQueryString()}";
+        var res = await _http.GetFromJsonAsync<PrivateMessagesEnvelope>($"/private_message/list{query}",options:Json.Options);
         return res;
     }
 

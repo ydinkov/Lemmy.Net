@@ -213,7 +213,7 @@ public class SiteEnvelope
     public IList<Tagline> Taglines { get; set; }
 
     public SiteRoot Site { get; set; }
-    public IList<UserRoot> Admins { get; set; }
+    public IList<ModeratorRoot> Admins { get; set; }
     public IList<Language> AllLanguages { get; set; }
 
     public string Version { get; set; }

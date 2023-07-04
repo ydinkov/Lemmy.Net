@@ -47,7 +47,7 @@ namespace Lemmy.Net.Client.Models
 
         }
 
-        public static string GetQueryString(this object obj)
+        public static string GetQueryString(this object? obj)
         {
             var properties = obj.GetType().GetProperties();
             var query = HttpUtility.ParseQueryString(string.Empty);

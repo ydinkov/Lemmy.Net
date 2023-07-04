@@ -66,10 +66,10 @@ public class CommunityComponent
         return await res.Content.ReadFromJsonAsync<CommunityModEnvelope>(options:Json.Options);
     }
     
-    public async Task<PersonRoot> BanUser(BanUser ban)
+    public async Task<UserRoot> BanUser(BanUser ban)
     {
         var res = await _http.PostAsJsonAsync("/community/ban", ban,options:Json.Options);
-        return await res.Content.ReadFromJsonAsync<PersonRoot>(options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<UserRoot>(options:Json.Options);
     }
     
     

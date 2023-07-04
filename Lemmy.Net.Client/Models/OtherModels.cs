@@ -67,5 +67,5 @@ public class SearchEnvelope
     public IList<CommunityRoot> Communities { get; set; }
     public IList<PostRoot> Posts { get; set; }
     public string Type { get; set; }
-    public IList<UserRoot> Users { get; set; }
+    public IList<ModeratorRoot> Users { get; set; }
 }

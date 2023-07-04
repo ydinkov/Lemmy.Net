@@ -86,7 +86,7 @@ namespace Lemmy.Net.Client.Models
     {
         
         public PostRoot PostView { get; set; }
-        public IList<UserRoot>? Moderators { get; set; }
+        public IList<ModeratorRoot>? Moderators { get; set; }
         public int? Online { get; set; }
     }
 

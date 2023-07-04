@@ -5,11 +5,13 @@ namespace Lemmy.Net.Client.Models;
 
 public class PrivateMessageRoot
 {
-    public UserRoot Recipient { get; set; }
-    public UserRoot Creator { get; set; }
+    public User Recipient { get; set; }
+    public User Creator { get; set; }
 
     public PrivateMessage PrivateMessage { get; set; }
 }
+
+
 
 public class PrivateMessagesEnvelope
 {
@@ -23,7 +25,7 @@ public class PrivateMessageReportsEnvelope
 
 public class PrivateMessageEnvelope
 {
-    public PrivateMessageRoot PrivateMessage { get; set; }
+    public PrivateMessageRoot PrivateMessageView  { get; set; }
 }
 
     public class PrivateMessageReportEnvelope
@@ -55,16 +57,16 @@ public class PrivateMessageReport
 
 public class PrivateMessage
 {
-     public string ApId { get; private set; } = string.Empty;
-     public string Content { get; private set; } = string.Empty;
-    public int CreatorId { get; private set; }
-     public bool Deleted { get; private set; }
-     public int Id { get; private set; }
-     public bool Local { get; private set; }
-    public string Published { get; private set; } = string.Empty;
-    public bool Read { get; private set; }
-    public int RecipientId { get; private set; }
-    public string? Updated { get; private set; }
+     public string ApId { get;  set; }
+     public string Content { get;  set; }
+    public int CreatorId { get;  set; }
+     public bool Deleted { get;  set; }
+     public int Id { get; set ; }
+     public bool Local { get;  set; }
+    public string Published { get;  set; }
+    public bool Read { get; set ; }
+    public int RecipientId { get;  set; }
+    public string? Updated { get;  set; }
 }
 
 public class PrivateMessageReportsRequest
@@ -74,4 +76,13 @@ public class PrivateMessageReportsRequest
     public int? Page { get; set; }
     public bool? UnresolvedOnly { get; set; }
 
+}
+
+public class PrivateMessagesRequest
+{
+    public int? Limit { get; set; }
+    public int? Page { get; set; }
+    public bool? UnreadOnly { get; set; }
+
+    
 }

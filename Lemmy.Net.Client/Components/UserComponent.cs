@@ -42,10 +42,10 @@ public class UserComponent
         return await res.Content.ReadFromJsonAsync<LoginEnvelope>(options:Json.Options);
     }
 
-    public async Task<PersonRoot> Ban(int userId, bool deleteData = true)
+    public async Task<UserRoot> Ban(int userId, bool deleteData = true)
     {
         var res = await _http.PostAsJsonAsync("/user/ban", new{ban =true,user_id = userId,remove_data=deleteData},options:Json.Options);
-        return await res.Content.ReadFromJsonAsync<PersonRoot>(options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<UserRoot>(options:Json.Options);
     }
     
     public async Task<BlockUser> Block(int userId)
@@ -66,8 +66,8 @@ public class UserComponent
         return await res.Content.ReadFromJsonAsync<DeleteAccountResponse>(options:Json.Options);
     }
 
-    public async Task<UserDetails> GetDetails(GetUserDetails details)=> 
-        await _http.GetFromJsonAsync<UserDetails>($"/user?{details.GetQueryString()}",options:Json.Options);
+    public async Task<UserDetailsEnvelope> GetDetails(UserDetailsRequest detailsRequest)=> 
+        await _http.GetFromJsonAsync<UserDetailsEnvelope>($"/user?{detailsRequest.GetQueryString()}",options:Json.Options);
 
 
     public async Task<UserMentionsEnvelope> GetMentions(GetUserMentions mentions)=> 

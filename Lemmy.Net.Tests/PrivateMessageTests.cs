@@ -1,18 +1,26 @@
 ﻿using FluentAssertions;
 using Lemmy.Net.Client.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Nibblebit.Lemmy.Tests;
 
 public class PrivateMessageTests : AbstractTest
 {
     [Fact]
-    public async Task GetPrivateMessageTestsTest()
+    public async Task GetPrivateMessageTests()
     {
-        //var posts = await _lemmy.P.List();
-        //posts.Posts.Should().NotBeEmpty();
+        var pms = await _lemmy.PrivateMessage.List();
+        pms.PrivateMessages.Should().NotBeNull();
     }
     
+    
+    [Fact]
+    public async Task CreatePrivateMessageTests()
+    {
+        var user = await _lemmy.User.GetDetails(new UserDetailsRequest{ Username = "nibblebot" });
+        var pms = await _lemmy.PrivateMessage.Create(user.PersonView.Person.Id,"test message");
+        pms.PrivateMessageView.PrivateMessage.Should().NotBeNull();
+        var res = await _lemmy.PrivateMessage.Delete(pms.PrivateMessageView.PrivateMessage.Id);
+        res.Should().NotBeNull();
+    }
 
 }

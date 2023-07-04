@@ -11,12 +11,16 @@ namespace Lemmy.Net.Client.Models
         public CommentComponent Comment { get; }
         
         public UserComponent User { get; }
+        
+        public PrivateMessageComponent PrivateMessage { get; }
+        
         public LemmyService(HttpClient client)
         {
             Community = new CommunityComponent(client);
             Post = new PostComponent(client);
             Comment = new CommentComponent(client);
             User = new UserComponent(client);
+            PrivateMessage = new PrivateMessageComponent(client);
         }
 
 
@@ -44,7 +48,7 @@ namespace Lemmy.Net.Client.Models
         public CommentComponent Comment { get; }
         
         public UserComponent User { get; }
-        
+        public PrivateMessageComponent PrivateMessage { get; }
         Task<PostEnvelope> DeletePostsAsync(int postId);
         Task<PostEnvelope> CreatePostsAsync(CreatePost post);
         Task<PostEnvelope> GetPostAsync(int postId);

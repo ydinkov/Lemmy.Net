@@ -17,7 +17,7 @@ public class AbstractTest
         string configStr;
         try
         {
-            configStr = File.ReadAllText("config.json");
+            configStr = File.ReadAllText("local.config.json");
         }
         catch
         {

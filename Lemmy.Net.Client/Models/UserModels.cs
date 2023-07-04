@@ -27,21 +27,21 @@ public class User
 
 public class UserEnvelope
 {
-    public PersonRoot Person { get; set; }
+    public UserRoot User { get; set; }
 }
 
 public class DeleteAccountResponse
 {
-    public IList<PersonRoot> Banned { get; set; }
+    public IList<UserRoot> Banned { get; set; }
 }
 
-public class UserRoot
+public class ModeratorRoot
 {
     public User Moderator { get; set; }
     public Community Community { get; set; }
 }
 
-public class PersonRoot
+public class UserRoot
 {
     public User Person { get; set; }
     public Counts Counts { get; set; }
@@ -75,15 +75,15 @@ public class LoginEnvelope
     public string Jwt { get; set; }
 }
 
-public class UserDetails
+public class UserDetailsEnvelope
 {
     public IList<CommentRoot> Comments { get; set; }
     public IList<CommunityModRoot> Moderates { get; set; }
-    public User PersonView { get; set; }
+    public UserRoot PersonView { get; set; }
     public IList<PostRoot> Posts { get; set; }
 }
 
-public class GetUserDetails
+public class UserDetailsRequest
 {
     public int? CommunityId { get; set; }
     public int? Limit { get; set; }
@@ -134,13 +134,13 @@ public class UserSettings
 
 public class BanResponse
 {
-    public PersonRoot PersonView { get; set; }
+    public UserRoot UserView { get; set; }
 }
 
 public class BlockUser
 {
     public bool Blocked { get; set; }
-    public PersonRoot PersonView { get; set; }
+    public UserRoot UserView { get; set; }
 }
 
 public class GetUserMentions

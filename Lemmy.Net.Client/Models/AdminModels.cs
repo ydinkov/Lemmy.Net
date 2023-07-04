@@ -11,7 +11,7 @@ public class AddAdmin
 
 public class AdminsEnvelope
 {
-    public IList<UserRoot> Admins { get; set; }
+    public IList<ModeratorRoot> Admins { get; set; }
 }
 
 public class RegistrationApplicationsEnvelope
