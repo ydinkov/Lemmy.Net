@@ -7,7 +7,6 @@ using System.Text.Json.Serialization;
 using System.Web;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace Lemmy.Net.Client.Models
 {
     public static class HttpClientExtensions
@@ -40,7 +39,11 @@ namespace Lemmy.Net.Client.Models
 
             var uri = new Uri($"https://{lemmyInstance}/api/{apiVersion}/");
 
-            services.AddHttpClient<ILemmyService, LemmyService>(client => { client.BaseAddress = uri; })
+            services.AddHttpClient<ILemmyService, LemmyService>(client =>
+                {
+                    client.BaseAddress = uri;
+                    client.DefaultRequestHeaders.Add("User-Agent","");
+                })
                 .ConfigurePrimaryHttpMessageHandler(() =>
                     new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken));
         }

@@ -136,5 +136,6 @@ public class UserComponent
         var query = communityId is null? string.Empty :  $"?{new { community_id = communityId }}";
         return await _http.GetFromJsonAsync<ReportCount>($"/user/report_count{query}",options:Json.Options);
     }
+    
 
 }

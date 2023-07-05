@@ -37,15 +37,10 @@ public class CommentComponent
         return res.IsSuccessStatusCode;
     }
     
-    public async Task<bool> Report(int postId, string reason_for_report)
-    {
-        var res = await _http.PostAsJsonAsync("/post/report", new{post_id = postId,reason = reason_for_report},options:Json.Options);
-        return res.IsSuccessStatusCode;
-    }
     
-    public async Task<CommentReportEnvelope> Report(int reportId)
+    public async Task<CommentReportEnvelope> Report(int reportId, string reasonStr)
     {
-        var res = await _http.PutAsJsonAsync("/comment/report/resolve", new{report_id = reportId,resolved = true},options:Json.Options);
+        var res = await _http.PutAsJsonAsync("/comment/report", new{report_id = reportId, reason = reasonStr},options:Json.Options);
         return await res.Content.ReadFromJsonAsync<CommentReportEnvelope>(options:Json.Options);
     }
     
@@ -54,8 +49,6 @@ public class CommentComponent
         var res = await _http.PutAsJsonAsync("/comment/save", new{comment_id = commentId,save = true},options:Json.Options);
         return await res.Content.ReadFromJsonAsync<CommentEnvelope>(options:Json.Options);
     }
-    
-    
     
     public async Task<bool> Create(CreateComment createComment)
     {
@@ -71,6 +64,12 @@ public class CommentComponent
 
     public async Task<CommentReportsEnvelope> Reports(CommentReportsRequest reports) =>
         await _http.GetFromJsonAsync<CommentReportsEnvelope>($"/comment/report/list?{reports.GetQueryString()}",options:Json.Options);
+    
+    public async Task<CommentReportEnvelope?> ResolveReport(int reportId)
+    {
+        var res = await _http.PutAsJsonAsync("/comment/report/resolve", new{report_id = reportId, resolved =true},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<CommentReportEnvelope>(options:Json.Options);
+    }
     
     public async Task<CommentEnvelope> MarkReplyAsRead(int replyId)
     {

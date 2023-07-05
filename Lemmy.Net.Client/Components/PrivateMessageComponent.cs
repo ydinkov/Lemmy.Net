@@ -20,9 +20,9 @@ public class PrivateMessageComponent
         return await res.Content.ReadFromJsonAsync<PrivateMessageEnvelope>(options:Json.Options);
     }
 
-    public async Task<PrivateMessageReportEnvelope> Report(int privateMessageId, string reason)
+    public async Task<PrivateMessageReportEnvelope> Report(int privateMessageId, string reasonStr)
     {
-        var res = await _http.PostAsJsonAsync("/private_message/report", new { private_message_id = privateMessageId, reason = reason},options:Json.Options);
+        var res = await _http.PostAsJsonAsync("/private_message/report", new { private_message_id = privateMessageId, reason = reasonStr},options:Json.Options);
         return await res.Content.ReadFromJsonAsync<PrivateMessageReportEnvelope>(options:Json.Options);
     }
 
@@ -64,8 +64,8 @@ public class PrivateMessageComponent
         return await res.Content.ReadFromJsonAsync<PrivateMessageReportEnvelope>(options:Json.Options);
     }
 
-    public async Task<PrivateMessageReportEnvelope> Reports(PrivateMessageReportsRequest reports) =>
-        await _http.GetFromJsonAsync<PrivateMessageReportEnvelope>($"/private_message/report/list?{reports.GetQueryString()}",options:Json.Options);
+    public async Task<PrivateMessageReportsEnvelope> Reports(PrivateMessageReportsRequest reports) =>
+        await _http.GetFromJsonAsync<PrivateMessageReportsEnvelope>($"/private_message/report/list?{reports.GetQueryString()}",options:Json.Options);
 
 
 

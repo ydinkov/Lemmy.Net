@@ -20,7 +20,7 @@ public class PrivateMessagesEnvelope
 
 public class PrivateMessageReportsEnvelope
 {
-    public IList<PrivateMessageReportRoot> PrivateMessages { get; set; }
+    public IList<PrivateMessageReportRoot> PrivateMessageReports { get; set; }
 }
 
 public class PrivateMessageEnvelope

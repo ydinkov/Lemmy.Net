@@ -15,6 +15,13 @@ public class PostComponent
         this._http = _http;
     }
     
+    public async Task<PostReportEnvelope> ResolveReport(int reportId)
+    {
+        var res = await _http.PutAsJsonAsync("/post/report/resolve", new{report_id = reportId, resolved =true},options:Json.Options);
+        return await res.Content.ReadFromJsonAsync<PostReportEnvelope>(options:Json.Options);
+    }
+
+    
     public async Task<bool> Lock(int postId)
     {
         var res = await _http.PostAsync(new Uri("/post/lock"), JsonContent.Create(new {locked=true, post_id = postId},options:Json.Options));
@@ -75,10 +82,10 @@ public class PostComponent
         return await res.Content.ReadFromJsonAsync<PostEnvelope>(options:Json.Options);
     }
     
-    public async Task<bool> Report(int postId, string reason_for_report)
+    public async Task<PostReportEnvelope?> Report(int postId, string reason_for_report)
     {
         var res = await _http.PostAsJsonAsync("/post/report", new{postid = postId,reason = reason_for_report},options:Json.Options);
-        return res.IsSuccessStatusCode;
+        return await res.Content.ReadFromJsonAsync<PostReportEnvelope>(options:Json.Options);
     }
     
     public async Task<PostEnvelope> Create(CreatePost createPost)
@@ -125,12 +132,7 @@ public class PostComponent
         return await res.Content.ReadFromJsonAsync<PostEnvelope>(options:Json.Options);
     }
     
-    public async Task<PostReportEnvelope> ResolveReport(int reportId)
-    {
-        var res = await _http.PutAsJsonAsync("/post/report/resolve", new{report_id = reportId, resolved =true},options:Json.Options);
-        return await res.Content.ReadFromJsonAsync<PostReportEnvelope>(options:Json.Options);
-    }
-    
+
     public async Task<PostEnvelope> Save(int postId)
     {
         var res = await _http.PutAsJsonAsync("/post/save", new{post_id = postId,save = true},options:Json.Options);
