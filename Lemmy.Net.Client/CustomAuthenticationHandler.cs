@@ -2,8 +2,9 @@
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using Lemmy.Net.Client.Models;
 
-namespace Lemmy.Net.Client { 
+namespace Lemmy.Net.Client {
     public class CustomAuthenticationHandler : HttpClientHandler
     {
         private readonly Uri _lemmyInstanceBaseUri;
@@ -13,7 +14,9 @@ namespace Lemmy.Net.Client {
         private readonly Action<string, string> _saveToken;
         private readonly string _defaultVersion;
 
-        public CustomAuthenticationHandler(Uri lemmyInstanceBaseUri, string username, string password, Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null,string defaultVersion="v3")
+        public CustomAuthenticationHandler(Uri lemmyInstanceBaseUri, string username, string password,
+            Func<string, Task<string>> retrieveToken = null, Action<string, string> saveToken = null,
+            string defaultVersion = "v3")
         {
             _lemmyInstanceBaseUri = lemmyInstanceBaseUri;
             _username = username;
@@ -23,11 +26,12 @@ namespace Lemmy.Net.Client {
             _defaultVersion = defaultVersion;
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             var jwtToken = await _retrieveToken(_username);
-            
-            
+
+
             var defaultPath = $"/api/{_defaultVersion}";
             // Retry policies are messing with this
             //I don't know what I'm doing with
@@ -35,7 +39,7 @@ namespace Lemmy.Net.Client {
             {
                 var builder = new UriBuilder(request.RequestUri)
                 {
-                    Path =  $"{defaultPath}{request.RequestUri.AbsolutePath}"
+                    Path = $"{defaultPath}{request.RequestUri.AbsolutePath}"
                 };
                 request.RequestUri = builder.Uri;
             }
@@ -48,7 +52,7 @@ namespace Lemmy.Net.Client {
                 var urib = new UriBuilder(_lemmyInstanceBaseUri);
                 urib.Path += "user/login";
                 var uri = urib.ToString();
-                
+
                 var obj = JsonSerializer.Serialize(new { username_or_email = _username, password = _password });
                 var content = new StringContent(obj, Encoding.UTF8, "application/json");
                 var loginResponse = await base.SendAsync(new HttpRequestMessage(HttpMethod.Post, uri)
@@ -58,10 +62,13 @@ namespace Lemmy.Net.Client {
 
                 if (!loginResponse.IsSuccessStatusCode)
                 {
-                    throw new ApplicationException($"Failed to log in: {loginResponse.StatusCode}");
+                    throw new ApplicationException(
+                        $"Failed to log in with username '{_username}' and password {_password.Anonymize()}: {loginResponse.StatusCode}");
                 }
 
-                var loginContent = await JsonSerializer.DeserializeAsync<Dictionary<string, object>>(await loginResponse.Content.ReadAsStreamAsync(cancellationToken), new JsonSerializerOptions { PropertyNameCaseInsensitive = true }, cancellationToken);
+                var loginContent = await JsonSerializer.DeserializeAsync<Dictionary<string, object>>(
+                    await loginResponse.Content.ReadAsStreamAsync(cancellationToken),
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }, cancellationToken);
                 jwtToken = loginContent["jwt"].ToString();
 
                 // Save the token
@@ -74,11 +81,11 @@ namespace Lemmy.Net.Client {
             //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
 
             //I really don't understand why the api want's the following, but okay.
-            if (request.Method == HttpMethod.Post || request.Method ==  HttpMethod.Put)
+            if (request.Method == HttpMethod.Post || request.Method == HttpMethod.Put)
             {
                 //interscept the request object
                 var str = await request.Content.ReadAsStringAsync(cancellationToken);
-                var proxy = JsonSerializer.Deserialize<Dictionary<string,object>>(str);
+                var proxy = JsonSerializer.Deserialize<Dictionary<string, object>>(str);
                 //Add the token to an auth property
                 proxy["auth"] = jwtToken;
                 request.Content = JsonContent.Create(proxy);
@@ -87,20 +94,20 @@ namespace Lemmy.Net.Client {
             if (request.Method == HttpMethod.Get)
             {
                 var old = request.RequestUri.ToString();
-                request.RequestUri = new Uri( old+ $"{(old.Contains('?') ?"&":"?")}auth={jwtToken}");
+                request.RequestUri = new Uri(old + $"{(old.Contains('?') ? "&" : "?")}auth={jwtToken}");
             }
-            
-          var res = await base.SendAsync(request, cancellationToken);
 
-           return res.IsSuccessStatusCode ? res
-               : throw new HttpRequestException((await res.Content.ReadAsStringAsync(cancellationToken)), null,
-                   res.StatusCode);
- 
+            var res = await base.SendAsync(request, cancellationToken);
+
             
-    
+            return res.IsSuccessStatusCode
+                ? res
+                : throw new HttpRequestException((await res.Content.ReadAsStringAsync(cancellationToken)), null,
+                    res.StatusCode);
         }
     }
+}
 
     
     
-}
+

@@ -18,7 +18,7 @@ namespace Lemmy.Net.Client.Models
         // {
         //     http = new HttpClient();
         // }
-        
+
         /// <summary>
         /// Adds an HTTP client for Lemmy service with optional JWT token retrieval and saving functionality.
         /// </summary>
@@ -37,14 +37,12 @@ namespace Lemmy.Net.Client.Models
         {
             lemmyInstance = lemmyInstance.Replace("https://", "");
             lemmyInstance = lemmyInstance.Split("/").First();
-            
+
             var uri = new Uri($"https://{lemmyInstance}/api/{apiVersion}/");
 
             services.AddHttpClient<ILemmyService, LemmyService>(client => { client.BaseAddress = uri; })
                 .ConfigurePrimaryHttpMessageHandler(() =>
                     new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken));
-
-
         }
 
         public static string GetQueryString(this object? obj)
@@ -55,35 +53,34 @@ namespace Lemmy.Net.Client.Models
             foreach (var property in properties)
             {
                 var originalValue = property.GetValue(obj);
-                if(originalValue == null) continue;
+                if (originalValue == null) continue;
                 var nameOverride = property?.GetCustomAttribute<JsonPropertyNameAttribute>()?.Name ?? property.Name;
 
 
-
-                var isNullable = (property?.PropertyType.IsGenericType ?? false) && property?.PropertyType.GetGenericTypeDefinition() == typeof(System.Nullable<>);
+                var isNullable = (property?.PropertyType.IsGenericType ?? false) &&
+                                 property?.PropertyType.GetGenericTypeDefinition() == typeof(System.Nullable<>);
 
                 var type = isNullable
                     ? Nullable.GetUnderlyingType(property?.PropertyType)
                     : property?.PropertyType;
-                
-                var typeCode = Type.GetTypeCode(type); 
-                
-                
-                
-                var value = typeCode  switch
+
+                var typeCode = Type.GetTypeCode(type);
+
+
+                var value = typeCode switch
                 {
                     TypeCode.Empty => string.Empty,
                     TypeCode.Boolean => originalValue.ToString()?.ToLower(),
-                    TypeCode.Char =>  originalValue.ToString(),
-                    TypeCode.Int16 =>  originalValue.ToString(),
-                    TypeCode.UInt16 =>  originalValue.ToString(),
-                    TypeCode.Int32 =>  originalValue.ToString(),
-                    TypeCode.UInt32 =>  originalValue.ToString(),
-                    TypeCode.Int64 =>  originalValue.ToString(),
-                    TypeCode.UInt64 =>  originalValue.ToString(),
-                    TypeCode.Single =>  originalValue.ToString(),
-                    TypeCode.Double =>  originalValue.ToString(),
-                    TypeCode.Decimal =>  originalValue.ToString(),
+                    TypeCode.Char => originalValue.ToString(),
+                    TypeCode.Int16 => originalValue.ToString(),
+                    TypeCode.UInt16 => originalValue.ToString(),
+                    TypeCode.Int32 => originalValue.ToString(),
+                    TypeCode.UInt32 => originalValue.ToString(),
+                    TypeCode.Int64 => originalValue.ToString(),
+                    TypeCode.UInt64 => originalValue.ToString(),
+                    TypeCode.Single => originalValue.ToString(),
+                    TypeCode.Double => originalValue.ToString(),
+                    TypeCode.Decimal => originalValue.ToString(),
                     TypeCode.String => originalValue.ToString(),
                     TypeCode.DateTime => ((DateTime)originalValue).ToString("h:mm:ss tt zz"),
                     _ => throw new ArgumentOutOfRangeException()
@@ -93,6 +90,24 @@ namespace Lemmy.Net.Client.Models
             }
 
             return query.ToString();
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static string Anonymize(this string input)
+        {
+            if (string.IsNullOrEmpty(input) || input.Length <= 2)
+            {
+                return input;
+            }
+
+            char firstChar = input[0];
+            char lastChar = input[input.Length - 1];
+
+            string middleChars = new string('*', input.Length - 2);
+
+            return firstChar + middleChars + lastChar;
         }
     }
 }
