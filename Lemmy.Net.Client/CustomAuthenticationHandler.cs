@@ -54,6 +54,7 @@ namespace Lemmy.Net.Client {
                 var uri = urib.ToString();
 
                 var obj = JsonSerializer.Serialize(new { username_or_email = _username, password = _password });
+                
                 var content = new StringContent(obj, Encoding.UTF8, "application/json");
                 var loginResponse = await base.SendAsync(new HttpRequestMessage(HttpMethod.Post, uri)
                 {
@@ -62,8 +63,9 @@ namespace Lemmy.Net.Client {
 
                 if (!loginResponse.IsSuccessStatusCode)
                 {
-                    throw new ApplicationException(
-                        $"Failed to log in with username '{_username}' and password {_password.Anonymize()}: {loginResponse.StatusCode}");
+                    throw new HttpRequestException(
+                        $"Failed to log in with username '{_username}' and password {_password.Anonymize()}:\n {await loginResponse.Content.ReadAsStringAsync(cancellationToken)}",
+                        null, loginResponse.StatusCode);
                 }
 
                 var loginContent = await JsonSerializer.DeserializeAsync<Dictionary<string, object>>(

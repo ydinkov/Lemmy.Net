@@ -13,5 +13,4 @@ public class AdminTests : AbstractTest
         //var communities = await _lemmy.GetCommunitiesAsync();
         //communities.Communities.Should().HaveCountGreaterThan(0);
     }
-
 }
