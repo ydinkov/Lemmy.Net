@@ -42,7 +42,6 @@ namespace Lemmy.Net.Client.Models
             services.AddHttpClient<ILemmyService, LemmyService>(client =>
                 {
                     client.BaseAddress = uri;
-                    client.DefaultRequestHeaders.Add("User-Agent","");
                 })
                 .ConfigurePrimaryHttpMessageHandler(() =>
                     new CustomAuthenticationHandler(uri, username, password, retrieveToken, saveToken));

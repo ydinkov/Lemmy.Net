@@ -84,7 +84,7 @@ public class PostComponent
     
     public async Task<PostReportEnvelope?> Report(int postId, string reason_for_report)
     {
-        var res = await _http.PostAsJsonAsync("/post/report", new{postid = postId,reason = reason_for_report},options:Json.Options);
+        var res = await _http.PostAsJsonAsync("/post/report", new{post_id = postId,reason = reason_for_report},options:Json.Options);
         return await res.Content.ReadFromJsonAsync<PostReportEnvelope>(options:Json.Options);
     }
     

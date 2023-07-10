@@ -159,8 +159,6 @@ public class CommentReportsRequest
 
 public class CommentsRequest
 {
-    
-    
     public int? CommunityId { get; set; }
     
     public string? CommunityName { get; set; }

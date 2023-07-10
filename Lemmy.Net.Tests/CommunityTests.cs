@@ -17,8 +17,8 @@ public class CommunityTests : AbstractTest
     [Fact]
     public async Task GetCommunity()
     {
-        var community = await _lemmy.Community.Get(name:"test_new_comm");
-        community.CommunityView.Community.Title.Should().Be("Test New Community");
+        var community = await _lemmy.Community.Get(name:"botspam");
+        community.CommunityView.Community.Title.Should().Be("Bot Community");
     }
     
     [Fact]

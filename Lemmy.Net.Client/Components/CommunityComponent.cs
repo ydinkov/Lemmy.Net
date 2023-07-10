@@ -50,11 +50,10 @@ public class CommunityComponent
         return await res.Content.ReadFromJsonAsync<CommunityEnvelope>(options:Json.Options);
     }
     
-    public async Task<CommunitiesEnvelope> List(CommunitiesRequest q)
+    public async Task<CommunitiesEnvelope> List(CommunitiesRequest? q = null)
     {
-        
-        var res = await _http.GetAsync($"/community/list?{q.GetQueryString()}");
-        return await res.Content.ReadFromJsonAsync<CommunitiesEnvelope>(options:Json.Options);
+        var query = q is null? string.Empty :  $"?{q.GetQueryString()}";   
+        return await _http.GetFromJsonAsync<CommunitiesEnvelope>($"/community/list{query}");
     }
     
     public async Task<CommunityModEnvelope> CreateMod(int personId, int communityId)
